@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Fabulous.WPF.Generator": {
+      "commandName": "Project",
+      "commandLineArgs": "-m src\\Fabulous.WPF\\WPF.json -o src\\Fabulous.WPF\\WPF.fs -d",
+      "workingDirectory": "..\\..\\"
+    }
+  }
+}

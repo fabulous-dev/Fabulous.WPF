@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="InputTypes.fs" />
+    <Compile Include="Helpers.fs" />
+    <Compile Include="Reflection.fs" />
+    <Compile Include="WPFConverters.fs" />
+    <Compile Include="WPFOptimizers.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommandLineParser.FSharp" Version="2.6.0" />
+    <PackageReference Include="Fabulous" Version="0.50.0-alpha.5" />
+    <PackageReference Include="Fabulous.CodeGen" Version="0.50.0-alpha.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="WindowsBase">
+      <HintPath>C:\Program Files\dotnet\packs\Microsoft.WindowsDesktop.App.Ref\3.0.0\ref\netcoreapp3.0\WindowsBase.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

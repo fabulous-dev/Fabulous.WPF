@@ -1,0 +1,15 @@
+obj
+bin
+*.bak
+.vs
+.fake
+packages
+paket-files
+*.dll
+*.user
+\.DS_Store
+
+\.ionide/
+build_output/
+.idea/
+testapp*/
