@@ -15,7 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fabulous" Version="0.50.0-alpha.5" />
+    <PackageReference Include="Fabulous" Version="0.50.3" />
+    <PackageReference Update="FSharp.Core" Version="4.7.0" />
   </ItemGroup>
 
 </Project>
