@@ -4,6 +4,7 @@ namespace Fabulous.WPF
 #nowarn "59" // cast always holds
 #nowarn "66" // cast always holds
 #nowarn "67" // cast always holds
+#nowarn "46" // `checked` is a correct name 
 
 open Fabulous
 

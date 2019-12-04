@@ -1,5 +1,7 @@
 ﻿namespace CounterApp
 
+#nowarn "46"
+
 open Fabulous
 open Fabulous.WPF
 open System.Windows
