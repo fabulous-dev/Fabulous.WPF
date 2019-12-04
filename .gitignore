@@ -13,3 +13,8 @@ paket-files
 build_output/
 .idea/
 testapp*/
+
+1-assembly-types.json
+2-bound-model.json
+3-optimized-bound-model.json
+4-expanded-bound-model.json

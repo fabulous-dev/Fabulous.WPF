@@ -8,26 +8,26 @@ namespace Fabulous.WPF
 open Fabulous
 
 module ViewAttributes =
-    let FrameworkElementHorizontalAlignmentAttribKey : AttributeKey<_> = AttributeKey<_>("FrameworkElementHorizontalAlignment")
-    let FrameworkElementMarginAttribKey : AttributeKey<_> = AttributeKey<_>("FrameworkElementMargin")
-    let FrameworkElementVerticalAlignmentAttribKey : AttributeKey<_> = AttributeKey<_>("FrameworkElementVerticalAlignment")
-    let FrameworkElementWidthAttribKey : AttributeKey<_> = AttributeKey<_>("FrameworkElementWidth")
+    let HorizontalAlignmentAttribKey : AttributeKey<_> = AttributeKey<_>("HorizontalAlignment")
+    let MarginAttribKey : AttributeKey<_> = AttributeKey<_>("Margin")
+    let VerticalAlignmentAttribKey : AttributeKey<_> = AttributeKey<_>("VerticalAlignment")
+    let WidthAttribKey : AttributeKey<_> = AttributeKey<_>("Width")
     let ContentControlContentAttribKey : AttributeKey<_> = AttributeKey<_>("ContentControlContent")
-    let WindowTitleAttribKey : AttributeKey<_> = AttributeKey<_>("WindowTitle")
-    let ButtonBaseCommandAttribKey : AttributeKey<_> = AttributeKey<_>("ButtonBaseCommand")
-    let ButtonBaseCommandCanExecuteAttribKey : AttributeKey<_> = AttributeKey<_>("ButtonBaseCommandCanExecute")
+    let TitleAttribKey : AttributeKey<_> = AttributeKey<_>("Title")
+    let CommandAttribKey : AttributeKey<_> = AttributeKey<_>("Command")
+    let CommandCanExecuteAttribKey : AttributeKey<_> = AttributeKey<_>("CommandCanExecute")
     let ButtonContentAttribKey : AttributeKey<_> = AttributeKey<_>("ButtonContent")
-    let ToggleButtonCheckedAttribKey : AttributeKey<_> = AttributeKey<_>("ToggleButtonChecked")
-    let ToggleButtonUncheckedAttribKey : AttributeKey<_> = AttributeKey<_>("ToggleButtonUnchecked")
-    let ToggleButtonIsCheckedAttribKey : AttributeKey<_> = AttributeKey<_>("ToggleButtonIsChecked")
-    let TextBlockTextAttribKey : AttributeKey<_> = AttributeKey<_>("TextBlockText")
-    let TextBlockTextAlignmentAttribKey : AttributeKey<_> = AttributeKey<_>("TextBlockTextAlignment")
-    let RangeBaseValueChangedAttribKey : AttributeKey<_> = AttributeKey<_>("RangeBaseValueChanged")
-    let RangeBaseMinimumAttribKey : AttributeKey<_> = AttributeKey<_>("RangeBaseMinimum")
-    let RangeBaseMaximumAttribKey : AttributeKey<_> = AttributeKey<_>("RangeBaseMaximum")
-    let RangeBaseValueAttribKey : AttributeKey<_> = AttributeKey<_>("RangeBaseValue")
-    let StackPanelChildrenAttribKey : AttributeKey<_> = AttributeKey<_>("StackPanelChildren")
-    let StackPanelOrientationAttribKey : AttributeKey<_> = AttributeKey<_>("StackPanelOrientation")
+    let CheckedAttribKey : AttributeKey<_> = AttributeKey<_>("Checked")
+    let UncheckedAttribKey : AttributeKey<_> = AttributeKey<_>("Unchecked")
+    let IsCheckedAttribKey : AttributeKey<_> = AttributeKey<_>("IsChecked")
+    let TextAttribKey : AttributeKey<_> = AttributeKey<_>("Text")
+    let TextAlignmentAttribKey : AttributeKey<_> = AttributeKey<_>("TextAlignment")
+    let ValueChangedAttribKey : AttributeKey<_> = AttributeKey<_>("ValueChanged")
+    let MinimumAttribKey : AttributeKey<_> = AttributeKey<_>("Minimum")
+    let MaximumAttribKey : AttributeKey<_> = AttributeKey<_>("Maximum")
+    let ValueAttribKey : AttributeKey<_> = AttributeKey<_>("Value")
+    let ChildrenAttribKey : AttributeKey<_> = AttributeKey<_>("Children")
+    let OrientationAttribKey : AttributeKey<_> = AttributeKey<_>("Orientation")
 
 type ViewBuilders() =
     /// Builds the attributes for a FrameworkElement in the view
@@ -43,59 +43,59 @@ type ViewBuilders() =
         let attribCount = match width with Some _ -> attribCount + 1 | None -> attribCount
 
         let attribBuilder = new AttributesBuilder(attribCount)
-        match horizontalAlignment with None -> () | Some v -> attribBuilder.Add(ViewAttributes.FrameworkElementHorizontalAlignmentAttribKey, (v)) 
-        match margin with None -> () | Some v -> attribBuilder.Add(ViewAttributes.FrameworkElementMarginAttribKey, (v)) 
-        match verticalAlignment with None -> () | Some v -> attribBuilder.Add(ViewAttributes.FrameworkElementVerticalAlignmentAttribKey, (v)) 
-        match width with None -> () | Some v -> attribBuilder.Add(ViewAttributes.FrameworkElementWidthAttribKey, (v)) 
+        match horizontalAlignment with None -> () | Some v -> attribBuilder.Add(ViewAttributes.HorizontalAlignmentAttribKey, (v)) 
+        match margin with None -> () | Some v -> attribBuilder.Add(ViewAttributes.MarginAttribKey, (v)) 
+        match verticalAlignment with None -> () | Some v -> attribBuilder.Add(ViewAttributes.VerticalAlignmentAttribKey, (v)) 
+        match width with None -> () | Some v -> attribBuilder.Add(ViewAttributes.WidthAttribKey, (v)) 
         attribBuilder
 
     static member UpdateFrameworkElement (prevOpt: ViewElement voption, curr: ViewElement, target: System.Windows.FrameworkElement) = 
-        let mutable prevFrameworkElementHorizontalAlignmentOpt = ValueNone
-        let mutable currFrameworkElementHorizontalAlignmentOpt = ValueNone
-        let mutable prevFrameworkElementMarginOpt = ValueNone
-        let mutable currFrameworkElementMarginOpt = ValueNone
-        let mutable prevFrameworkElementVerticalAlignmentOpt = ValueNone
-        let mutable currFrameworkElementVerticalAlignmentOpt = ValueNone
-        let mutable prevFrameworkElementWidthOpt = ValueNone
-        let mutable currFrameworkElementWidthOpt = ValueNone
+        let mutable prevHorizontalAlignmentOpt = ValueNone
+        let mutable currHorizontalAlignmentOpt = ValueNone
+        let mutable prevMarginOpt = ValueNone
+        let mutable currMarginOpt = ValueNone
+        let mutable prevVerticalAlignmentOpt = ValueNone
+        let mutable currVerticalAlignmentOpt = ValueNone
+        let mutable prevWidthOpt = ValueNone
+        let mutable currWidthOpt = ValueNone
         for kvp in curr.AttributesKeyed do
-            if kvp.Key = ViewAttributes.FrameworkElementHorizontalAlignmentAttribKey.KeyValue then 
-                currFrameworkElementHorizontalAlignmentOpt <- ValueSome (kvp.Value :?> System.Windows.HorizontalAlignment)
-            if kvp.Key = ViewAttributes.FrameworkElementMarginAttribKey.KeyValue then 
-                currFrameworkElementMarginOpt <- ValueSome (kvp.Value :?> System.Windows.Thickness)
-            if kvp.Key = ViewAttributes.FrameworkElementVerticalAlignmentAttribKey.KeyValue then 
-                currFrameworkElementVerticalAlignmentOpt <- ValueSome (kvp.Value :?> System.Windows.VerticalAlignment)
-            if kvp.Key = ViewAttributes.FrameworkElementWidthAttribKey.KeyValue then 
-                currFrameworkElementWidthOpt <- ValueSome (kvp.Value :?> float)
+            if kvp.Key = ViewAttributes.HorizontalAlignmentAttribKey.KeyValue then 
+                currHorizontalAlignmentOpt <- ValueSome (kvp.Value :?> System.Windows.HorizontalAlignment)
+            if kvp.Key = ViewAttributes.MarginAttribKey.KeyValue then 
+                currMarginOpt <- ValueSome (kvp.Value :?> System.Windows.Thickness)
+            if kvp.Key = ViewAttributes.VerticalAlignmentAttribKey.KeyValue then 
+                currVerticalAlignmentOpt <- ValueSome (kvp.Value :?> System.Windows.VerticalAlignment)
+            if kvp.Key = ViewAttributes.WidthAttribKey.KeyValue then 
+                currWidthOpt <- ValueSome (kvp.Value :?> float)
         match prevOpt with
         | ValueNone -> ()
         | ValueSome prev ->
             for kvp in prev.AttributesKeyed do
-                if kvp.Key = ViewAttributes.FrameworkElementHorizontalAlignmentAttribKey.KeyValue then 
-                    prevFrameworkElementHorizontalAlignmentOpt <- ValueSome (kvp.Value :?> System.Windows.HorizontalAlignment)
-                if kvp.Key = ViewAttributes.FrameworkElementMarginAttribKey.KeyValue then 
-                    prevFrameworkElementMarginOpt <- ValueSome (kvp.Value :?> System.Windows.Thickness)
-                if kvp.Key = ViewAttributes.FrameworkElementVerticalAlignmentAttribKey.KeyValue then 
-                    prevFrameworkElementVerticalAlignmentOpt <- ValueSome (kvp.Value :?> System.Windows.VerticalAlignment)
-                if kvp.Key = ViewAttributes.FrameworkElementWidthAttribKey.KeyValue then 
-                    prevFrameworkElementWidthOpt <- ValueSome (kvp.Value :?> float)
+                if kvp.Key = ViewAttributes.HorizontalAlignmentAttribKey.KeyValue then 
+                    prevHorizontalAlignmentOpt <- ValueSome (kvp.Value :?> System.Windows.HorizontalAlignment)
+                if kvp.Key = ViewAttributes.MarginAttribKey.KeyValue then 
+                    prevMarginOpt <- ValueSome (kvp.Value :?> System.Windows.Thickness)
+                if kvp.Key = ViewAttributes.VerticalAlignmentAttribKey.KeyValue then 
+                    prevVerticalAlignmentOpt <- ValueSome (kvp.Value :?> System.Windows.VerticalAlignment)
+                if kvp.Key = ViewAttributes.WidthAttribKey.KeyValue then 
+                    prevWidthOpt <- ValueSome (kvp.Value :?> float)
         // Update properties
-        match prevFrameworkElementHorizontalAlignmentOpt, currFrameworkElementHorizontalAlignmentOpt with
+        match prevHorizontalAlignmentOpt, currHorizontalAlignmentOpt with
         | ValueSome prevValue, ValueSome currValue when prevValue = currValue -> ()
         | _, ValueSome currValue -> target.HorizontalAlignment <-  currValue
         | ValueSome _, ValueNone -> target.HorizontalAlignment <- System.Windows.HorizontalAlignment.Stretch
         | ValueNone, ValueNone -> ()
-        match prevFrameworkElementMarginOpt, currFrameworkElementMarginOpt with
+        match prevMarginOpt, currMarginOpt with
         | ValueSome prevValue, ValueSome currValue when prevValue = currValue -> ()
         | _, ValueSome currValue -> target.Margin <-  currValue
         | ValueSome _, ValueNone -> target.Margin <- System.Windows.Thickness(0.)
         | ValueNone, ValueNone -> ()
-        match prevFrameworkElementVerticalAlignmentOpt, currFrameworkElementVerticalAlignmentOpt with
+        match prevVerticalAlignmentOpt, currVerticalAlignmentOpt with
         | ValueSome prevValue, ValueSome currValue when prevValue = currValue -> ()
         | _, ValueSome currValue -> target.VerticalAlignment <-  currValue
         | ValueSome _, ValueNone -> target.VerticalAlignment <- System.Windows.VerticalAlignment.Stretch
         | ValueNone, ValueNone -> ()
-        match prevFrameworkElementWidthOpt, currFrameworkElementWidthOpt with
+        match prevWidthOpt, currWidthOpt with
         | ValueSome prevValue, ValueSome currValue when prevValue = currValue -> ()
         | _, ValueSome currValue -> target.Width <-  currValue
         | ValueSome _, ValueNone -> target.Width <- System.Double.NaN
@@ -171,28 +171,28 @@ type ViewBuilders() =
         let attribCount = match title with Some _ -> attribCount + 1 | None -> attribCount
 
         let attribBuilder = ViewBuilders.BuildContentControl(attribCount, ?content=content, ?horizontalAlignment=horizontalAlignment, ?margin=margin, ?verticalAlignment=verticalAlignment, ?width=width)
-        match title with None -> () | Some v -> attribBuilder.Add(ViewAttributes.WindowTitleAttribKey, (v)) 
+        match title with None -> () | Some v -> attribBuilder.Add(ViewAttributes.TitleAttribKey, (v)) 
         attribBuilder
 
     static member CreateWindow () : System.Windows.Window =
         new System.Windows.Window()
 
     static member UpdateWindow (prevOpt: ViewElement voption, curr: ViewElement, target: System.Windows.Window) = 
-        let mutable prevWindowTitleOpt = ValueNone
-        let mutable currWindowTitleOpt = ValueNone
+        let mutable prevTitleOpt = ValueNone
+        let mutable currTitleOpt = ValueNone
         for kvp in curr.AttributesKeyed do
-            if kvp.Key = ViewAttributes.WindowTitleAttribKey.KeyValue then 
-                currWindowTitleOpt <- ValueSome (kvp.Value :?> string)
+            if kvp.Key = ViewAttributes.TitleAttribKey.KeyValue then 
+                currTitleOpt <- ValueSome (kvp.Value :?> string)
         match prevOpt with
         | ValueNone -> ()
         | ValueSome prev ->
             for kvp in prev.AttributesKeyed do
-                if kvp.Key = ViewAttributes.WindowTitleAttribKey.KeyValue then 
-                    prevWindowTitleOpt <- ValueSome (kvp.Value :?> string)
+                if kvp.Key = ViewAttributes.TitleAttribKey.KeyValue then 
+                    prevTitleOpt <- ValueSome (kvp.Value :?> string)
         // Update inherited members
         ViewBuilders.UpdateContentControl (prevOpt, curr, target)
         // Update properties
-        match prevWindowTitleOpt, currWindowTitleOpt with
+        match prevTitleOpt, currTitleOpt with
         | ValueSome prevValue, ValueSome currValue when prevValue = currValue -> ()
         | _, ValueSome currValue -> target.Title <-  currValue
         | ValueSome _, ValueNone -> target.Title <- System.String.Empty
@@ -229,33 +229,33 @@ type ViewBuilders() =
         let attribCount = match commandCanExecute with Some _ -> attribCount + 1 | None -> attribCount
 
         let attribBuilder = ViewBuilders.BuildContentControl(attribCount, ?content=content, ?horizontalAlignment=horizontalAlignment, ?margin=margin, ?verticalAlignment=verticalAlignment, ?width=width)
-        match command with None -> () | Some v -> attribBuilder.Add(ViewAttributes.ButtonBaseCommandAttribKey, (v)) 
-        match commandCanExecute with None -> () | Some v -> attribBuilder.Add(ViewAttributes.ButtonBaseCommandCanExecuteAttribKey, (v)) 
+        match command with None -> () | Some v -> attribBuilder.Add(ViewAttributes.CommandAttribKey, (v)) 
+        match commandCanExecute with None -> () | Some v -> attribBuilder.Add(ViewAttributes.CommandCanExecuteAttribKey, (v)) 
         attribBuilder
 
     static member UpdateButtonBase (prevOpt: ViewElement voption, curr: ViewElement, target: System.Windows.Controls.Primitives.ButtonBase) = 
-        let mutable prevButtonBaseCommandOpt = ValueNone
-        let mutable currButtonBaseCommandOpt = ValueNone
-        let mutable prevButtonBaseCommandCanExecuteOpt = ValueNone
-        let mutable currButtonBaseCommandCanExecuteOpt = ValueNone
+        let mutable prevCommandOpt = ValueNone
+        let mutable currCommandOpt = ValueNone
+        let mutable prevCommandCanExecuteOpt = ValueNone
+        let mutable currCommandCanExecuteOpt = ValueNone
         for kvp in curr.AttributesKeyed do
-            if kvp.Key = ViewAttributes.ButtonBaseCommandAttribKey.KeyValue then 
-                currButtonBaseCommandOpt <- ValueSome (kvp.Value :?> unit -> unit)
-            if kvp.Key = ViewAttributes.ButtonBaseCommandCanExecuteAttribKey.KeyValue then 
-                currButtonBaseCommandCanExecuteOpt <- ValueSome (kvp.Value :?> bool)
+            if kvp.Key = ViewAttributes.CommandAttribKey.KeyValue then 
+                currCommandOpt <- ValueSome (kvp.Value :?> unit -> unit)
+            if kvp.Key = ViewAttributes.CommandCanExecuteAttribKey.KeyValue then 
+                currCommandCanExecuteOpt <- ValueSome (kvp.Value :?> bool)
         match prevOpt with
         | ValueNone -> ()
         | ValueSome prev ->
             for kvp in prev.AttributesKeyed do
-                if kvp.Key = ViewAttributes.ButtonBaseCommandAttribKey.KeyValue then 
-                    prevButtonBaseCommandOpt <- ValueSome (kvp.Value :?> unit -> unit)
-                if kvp.Key = ViewAttributes.ButtonBaseCommandCanExecuteAttribKey.KeyValue then 
-                    prevButtonBaseCommandCanExecuteOpt <- ValueSome (kvp.Value :?> bool)
+                if kvp.Key = ViewAttributes.CommandAttribKey.KeyValue then 
+                    prevCommandOpt <- ValueSome (kvp.Value :?> unit -> unit)
+                if kvp.Key = ViewAttributes.CommandCanExecuteAttribKey.KeyValue then 
+                    prevCommandCanExecuteOpt <- ValueSome (kvp.Value :?> bool)
         // Update inherited members
         ViewBuilders.UpdateContentControl (prevOpt, curr, target)
         // Update properties
-        (fun _ _ _ -> ()) prevButtonBaseCommandOpt currButtonBaseCommandOpt target
-        ViewUpdaters.updateCommand prevButtonBaseCommandOpt currButtonBaseCommandOpt (fun _target -> ()) (fun (target: System.Windows.Controls.Primitives.ButtonBase) cmd -> target.Command <- cmd) prevButtonBaseCommandCanExecuteOpt currButtonBaseCommandCanExecuteOpt target
+        (fun _ _ _ -> ()) prevCommandOpt currCommandOpt target
+        ViewUpdaters.updateCommand prevCommandOpt currCommandOpt (fun _target -> ()) (fun (target: System.Windows.Controls.Primitives.ButtonBase) cmd -> target.Command <- cmd) prevCommandCanExecuteOpt currCommandCanExecuteOpt target
 
     /// Builds the attributes for a Button in the view
     static member inline BuildButton(attribCount: int,
@@ -336,61 +336,61 @@ type ViewBuilders() =
 
         let attribBuilder = ViewBuilders.BuildButtonBase(attribCount, ?command=command, ?commandCanExecute=commandCanExecute, ?content=content, ?horizontalAlignment=horizontalAlignment, ?margin=margin, 
                                                          ?verticalAlignment=verticalAlignment, ?width=width)
-        match isChecked with None -> () | Some v -> attribBuilder.Add(ViewAttributes.ToggleButtonIsCheckedAttribKey, (v)) 
-        match checked with None -> () | Some v -> attribBuilder.Add(ViewAttributes.ToggleButtonCheckedAttribKey, (fun f -> System.Windows.RoutedEventHandler(fun _sender _args -> f()))(v)) 
-        match unchecked with None -> () | Some v -> attribBuilder.Add(ViewAttributes.ToggleButtonUncheckedAttribKey, (fun f -> System.Windows.RoutedEventHandler(fun _sender _args -> f()))(v)) 
+        match isChecked with None -> () | Some v -> attribBuilder.Add(ViewAttributes.IsCheckedAttribKey, (v)) 
+        match checked with None -> () | Some v -> attribBuilder.Add(ViewAttributes.CheckedAttribKey, (fun f -> System.Windows.RoutedEventHandler(fun _sender _args -> f()))(v)) 
+        match unchecked with None -> () | Some v -> attribBuilder.Add(ViewAttributes.UncheckedAttribKey, (fun f -> System.Windows.RoutedEventHandler(fun _sender _args -> f()))(v)) 
         attribBuilder
 
     static member UpdateToggleButton (prevOpt: ViewElement voption, curr: ViewElement, target: System.Windows.Controls.Primitives.ToggleButton) = 
-        let mutable prevToggleButtonCheckedOpt = ValueNone
-        let mutable currToggleButtonCheckedOpt = ValueNone
-        let mutable prevToggleButtonUncheckedOpt = ValueNone
-        let mutable currToggleButtonUncheckedOpt = ValueNone
-        let mutable prevToggleButtonIsCheckedOpt = ValueNone
-        let mutable currToggleButtonIsCheckedOpt = ValueNone
+        let mutable prevCheckedOpt = ValueNone
+        let mutable currCheckedOpt = ValueNone
+        let mutable prevUncheckedOpt = ValueNone
+        let mutable currUncheckedOpt = ValueNone
+        let mutable prevIsCheckedOpt = ValueNone
+        let mutable currIsCheckedOpt = ValueNone
         for kvp in curr.AttributesKeyed do
-            if kvp.Key = ViewAttributes.ToggleButtonCheckedAttribKey.KeyValue then 
-                currToggleButtonCheckedOpt <- ValueSome (kvp.Value :?> System.Windows.RoutedEventHandler)
-            if kvp.Key = ViewAttributes.ToggleButtonUncheckedAttribKey.KeyValue then 
-                currToggleButtonUncheckedOpt <- ValueSome (kvp.Value :?> System.Windows.RoutedEventHandler)
-            if kvp.Key = ViewAttributes.ToggleButtonIsCheckedAttribKey.KeyValue then 
-                currToggleButtonIsCheckedOpt <- ValueSome (kvp.Value :?> bool option)
+            if kvp.Key = ViewAttributes.CheckedAttribKey.KeyValue then 
+                currCheckedOpt <- ValueSome (kvp.Value :?> System.Windows.RoutedEventHandler)
+            if kvp.Key = ViewAttributes.UncheckedAttribKey.KeyValue then 
+                currUncheckedOpt <- ValueSome (kvp.Value :?> System.Windows.RoutedEventHandler)
+            if kvp.Key = ViewAttributes.IsCheckedAttribKey.KeyValue then 
+                currIsCheckedOpt <- ValueSome (kvp.Value :?> bool option)
         match prevOpt with
         | ValueNone -> ()
         | ValueSome prev ->
             for kvp in prev.AttributesKeyed do
-                if kvp.Key = ViewAttributes.ToggleButtonCheckedAttribKey.KeyValue then 
-                    prevToggleButtonCheckedOpt <- ValueSome (kvp.Value :?> System.Windows.RoutedEventHandler)
-                if kvp.Key = ViewAttributes.ToggleButtonUncheckedAttribKey.KeyValue then 
-                    prevToggleButtonUncheckedOpt <- ValueSome (kvp.Value :?> System.Windows.RoutedEventHandler)
-                if kvp.Key = ViewAttributes.ToggleButtonIsCheckedAttribKey.KeyValue then 
-                    prevToggleButtonIsCheckedOpt <- ValueSome (kvp.Value :?> bool option)
+                if kvp.Key = ViewAttributes.CheckedAttribKey.KeyValue then 
+                    prevCheckedOpt <- ValueSome (kvp.Value :?> System.Windows.RoutedEventHandler)
+                if kvp.Key = ViewAttributes.UncheckedAttribKey.KeyValue then 
+                    prevUncheckedOpt <- ValueSome (kvp.Value :?> System.Windows.RoutedEventHandler)
+                if kvp.Key = ViewAttributes.IsCheckedAttribKey.KeyValue then 
+                    prevIsCheckedOpt <- ValueSome (kvp.Value :?> bool option)
         // Unsubscribe previous event handlers
-        let shouldUpdateToggleButtonChecked = not ((identical prevToggleButtonCheckedOpt currToggleButtonCheckedOpt))
-        if shouldUpdateToggleButtonChecked then
-            match prevToggleButtonCheckedOpt with
+        let shouldUpdateChecked = not ((identical prevCheckedOpt currCheckedOpt))
+        if shouldUpdateChecked then
+            match prevCheckedOpt with
             | ValueSome prevValue -> target.Checked.RemoveHandler(prevValue)
             | ValueNone -> ()
-        let shouldUpdateToggleButtonUnchecked = not ((identical prevToggleButtonUncheckedOpt currToggleButtonUncheckedOpt))
-        if shouldUpdateToggleButtonUnchecked then
-            match prevToggleButtonUncheckedOpt with
+        let shouldUpdateUnchecked = not ((identical prevUncheckedOpt currUncheckedOpt))
+        if shouldUpdateUnchecked then
+            match prevUncheckedOpt with
             | ValueSome prevValue -> target.Unchecked.RemoveHandler(prevValue)
             | ValueNone -> ()
         // Update inherited members
         ViewBuilders.UpdateButtonBase (prevOpt, curr, target)
         // Update properties
-        match prevToggleButtonIsCheckedOpt, currToggleButtonIsCheckedOpt with
+        match prevIsCheckedOpt, currIsCheckedOpt with
         | ValueSome prevValue, ValueSome currValue when prevValue = currValue -> ()
         | _, ValueSome currValue -> target.IsChecked <- Option.toNullable currValue
         | ValueSome _, ValueNone -> target.IsChecked <- System.Nullable<bool>(true)
         | ValueNone, ValueNone -> ()
         // Subscribe new event handlers
-        if shouldUpdateToggleButtonChecked then
-            match currToggleButtonCheckedOpt with
+        if shouldUpdateChecked then
+            match currCheckedOpt with
             | ValueSome currValue -> target.Checked.AddHandler(currValue)
             | ValueNone -> ()
-        if shouldUpdateToggleButtonUnchecked then
-            match currToggleButtonUncheckedOpt with
+        if shouldUpdateUnchecked then
+            match currUncheckedOpt with
             | ValueSome currValue -> target.Unchecked.AddHandler(currValue)
             | ValueNone -> ()
 
@@ -454,40 +454,40 @@ type ViewBuilders() =
         let attribCount = match textAlignment with Some _ -> attribCount + 1 | None -> attribCount
 
         let attribBuilder = ViewBuilders.BuildFrameworkElement(attribCount, ?horizontalAlignment=horizontalAlignment, ?margin=margin, ?verticalAlignment=verticalAlignment, ?width=width)
-        match text with None -> () | Some v -> attribBuilder.Add(ViewAttributes.TextBlockTextAttribKey, (v)) 
-        match textAlignment with None -> () | Some v -> attribBuilder.Add(ViewAttributes.TextBlockTextAlignmentAttribKey, (v)) 
+        match text with None -> () | Some v -> attribBuilder.Add(ViewAttributes.TextAttribKey, (v)) 
+        match textAlignment with None -> () | Some v -> attribBuilder.Add(ViewAttributes.TextAlignmentAttribKey, (v)) 
         attribBuilder
 
     static member CreateTextBlock () : System.Windows.Controls.TextBlock =
         new System.Windows.Controls.TextBlock()
 
     static member UpdateTextBlock (prevOpt: ViewElement voption, curr: ViewElement, target: System.Windows.Controls.TextBlock) = 
-        let mutable prevTextBlockTextOpt = ValueNone
-        let mutable currTextBlockTextOpt = ValueNone
-        let mutable prevTextBlockTextAlignmentOpt = ValueNone
-        let mutable currTextBlockTextAlignmentOpt = ValueNone
+        let mutable prevTextOpt = ValueNone
+        let mutable currTextOpt = ValueNone
+        let mutable prevTextAlignmentOpt = ValueNone
+        let mutable currTextAlignmentOpt = ValueNone
         for kvp in curr.AttributesKeyed do
-            if kvp.Key = ViewAttributes.TextBlockTextAttribKey.KeyValue then 
-                currTextBlockTextOpt <- ValueSome (kvp.Value :?> string)
-            if kvp.Key = ViewAttributes.TextBlockTextAlignmentAttribKey.KeyValue then 
-                currTextBlockTextAlignmentOpt <- ValueSome (kvp.Value :?> System.Windows.TextAlignment)
+            if kvp.Key = ViewAttributes.TextAttribKey.KeyValue then 
+                currTextOpt <- ValueSome (kvp.Value :?> string)
+            if kvp.Key = ViewAttributes.TextAlignmentAttribKey.KeyValue then 
+                currTextAlignmentOpt <- ValueSome (kvp.Value :?> System.Windows.TextAlignment)
         match prevOpt with
         | ValueNone -> ()
         | ValueSome prev ->
             for kvp in prev.AttributesKeyed do
-                if kvp.Key = ViewAttributes.TextBlockTextAttribKey.KeyValue then 
-                    prevTextBlockTextOpt <- ValueSome (kvp.Value :?> string)
-                if kvp.Key = ViewAttributes.TextBlockTextAlignmentAttribKey.KeyValue then 
-                    prevTextBlockTextAlignmentOpt <- ValueSome (kvp.Value :?> System.Windows.TextAlignment)
+                if kvp.Key = ViewAttributes.TextAttribKey.KeyValue then 
+                    prevTextOpt <- ValueSome (kvp.Value :?> string)
+                if kvp.Key = ViewAttributes.TextAlignmentAttribKey.KeyValue then 
+                    prevTextAlignmentOpt <- ValueSome (kvp.Value :?> System.Windows.TextAlignment)
         // Update inherited members
         ViewBuilders.UpdateFrameworkElement (prevOpt, curr, target)
         // Update properties
-        match prevTextBlockTextOpt, currTextBlockTextOpt with
+        match prevTextOpt, currTextOpt with
         | ValueSome prevValue, ValueSome currValue when prevValue = currValue -> ()
         | _, ValueSome currValue -> target.Text <-  currValue
         | ValueSome _, ValueNone -> target.Text <- System.String.Empty
         | ValueNone, ValueNone -> ()
-        match prevTextBlockTextAlignmentOpt, currTextBlockTextAlignmentOpt with
+        match prevTextAlignmentOpt, currTextAlignmentOpt with
         | ValueSome prevValue, ValueSome currValue when prevValue = currValue -> ()
         | _, ValueSome currValue -> target.TextAlignment <-  currValue
         | ValueSome _, ValueNone -> target.TextAlignment <- System.Windows.TextAlignment.Left
@@ -527,69 +527,69 @@ type ViewBuilders() =
         let attribCount = match valueChanged with Some _ -> attribCount + 1 | None -> attribCount
 
         let attribBuilder = ViewBuilders.BuildFrameworkElement(attribCount, ?horizontalAlignment=horizontalAlignment, ?margin=margin, ?verticalAlignment=verticalAlignment, ?width=width)
-        match minimum with None -> () | Some v -> attribBuilder.Add(ViewAttributes.RangeBaseMinimumAttribKey, (v)) 
-        match maximum with None -> () | Some v -> attribBuilder.Add(ViewAttributes.RangeBaseMaximumAttribKey, (v)) 
-        match value with None -> () | Some v -> attribBuilder.Add(ViewAttributes.RangeBaseValueAttribKey, (v)) 
-        match valueChanged with None -> () | Some v -> attribBuilder.Add(ViewAttributes.RangeBaseValueChangedAttribKey, (fun f -> System.Windows.RoutedPropertyChangedEventHandler<float>(fun _sender _args -> f _args.NewValue))(v)) 
+        match minimum with None -> () | Some v -> attribBuilder.Add(ViewAttributes.MinimumAttribKey, (v)) 
+        match maximum with None -> () | Some v -> attribBuilder.Add(ViewAttributes.MaximumAttribKey, (v)) 
+        match value with None -> () | Some v -> attribBuilder.Add(ViewAttributes.ValueAttribKey, (v)) 
+        match valueChanged with None -> () | Some v -> attribBuilder.Add(ViewAttributes.ValueChangedAttribKey, (fun f -> System.Windows.RoutedPropertyChangedEventHandler<float>(fun _sender _args -> f _args.NewValue))(v)) 
         attribBuilder
 
     static member UpdateRangeBase (prevOpt: ViewElement voption, curr: ViewElement, target: System.Windows.Controls.Primitives.RangeBase) = 
-        let mutable prevRangeBaseValueChangedOpt = ValueNone
-        let mutable currRangeBaseValueChangedOpt = ValueNone
-        let mutable prevRangeBaseMinimumOpt = ValueNone
-        let mutable currRangeBaseMinimumOpt = ValueNone
-        let mutable prevRangeBaseMaximumOpt = ValueNone
-        let mutable currRangeBaseMaximumOpt = ValueNone
-        let mutable prevRangeBaseValueOpt = ValueNone
-        let mutable currRangeBaseValueOpt = ValueNone
+        let mutable prevValueChangedOpt = ValueNone
+        let mutable currValueChangedOpt = ValueNone
+        let mutable prevMinimumOpt = ValueNone
+        let mutable currMinimumOpt = ValueNone
+        let mutable prevMaximumOpt = ValueNone
+        let mutable currMaximumOpt = ValueNone
+        let mutable prevValueOpt = ValueNone
+        let mutable currValueOpt = ValueNone
         for kvp in curr.AttributesKeyed do
-            if kvp.Key = ViewAttributes.RangeBaseValueChangedAttribKey.KeyValue then 
-                currRangeBaseValueChangedOpt <- ValueSome (kvp.Value :?> System.Windows.RoutedPropertyChangedEventHandler<System.Double>)
-            if kvp.Key = ViewAttributes.RangeBaseMinimumAttribKey.KeyValue then 
-                currRangeBaseMinimumOpt <- ValueSome (kvp.Value :?> float)
-            if kvp.Key = ViewAttributes.RangeBaseMaximumAttribKey.KeyValue then 
-                currRangeBaseMaximumOpt <- ValueSome (kvp.Value :?> float)
-            if kvp.Key = ViewAttributes.RangeBaseValueAttribKey.KeyValue then 
-                currRangeBaseValueOpt <- ValueSome (kvp.Value :?> float)
+            if kvp.Key = ViewAttributes.ValueChangedAttribKey.KeyValue then 
+                currValueChangedOpt <- ValueSome (kvp.Value :?> System.Windows.RoutedPropertyChangedEventHandler<System.Double>)
+            if kvp.Key = ViewAttributes.MinimumAttribKey.KeyValue then 
+                currMinimumOpt <- ValueSome (kvp.Value :?> float)
+            if kvp.Key = ViewAttributes.MaximumAttribKey.KeyValue then 
+                currMaximumOpt <- ValueSome (kvp.Value :?> float)
+            if kvp.Key = ViewAttributes.ValueAttribKey.KeyValue then 
+                currValueOpt <- ValueSome (kvp.Value :?> float)
         match prevOpt with
         | ValueNone -> ()
         | ValueSome prev ->
             for kvp in prev.AttributesKeyed do
-                if kvp.Key = ViewAttributes.RangeBaseValueChangedAttribKey.KeyValue then 
-                    prevRangeBaseValueChangedOpt <- ValueSome (kvp.Value :?> System.Windows.RoutedPropertyChangedEventHandler<System.Double>)
-                if kvp.Key = ViewAttributes.RangeBaseMinimumAttribKey.KeyValue then 
-                    prevRangeBaseMinimumOpt <- ValueSome (kvp.Value :?> float)
-                if kvp.Key = ViewAttributes.RangeBaseMaximumAttribKey.KeyValue then 
-                    prevRangeBaseMaximumOpt <- ValueSome (kvp.Value :?> float)
-                if kvp.Key = ViewAttributes.RangeBaseValueAttribKey.KeyValue then 
-                    prevRangeBaseValueOpt <- ValueSome (kvp.Value :?> float)
+                if kvp.Key = ViewAttributes.ValueChangedAttribKey.KeyValue then 
+                    prevValueChangedOpt <- ValueSome (kvp.Value :?> System.Windows.RoutedPropertyChangedEventHandler<System.Double>)
+                if kvp.Key = ViewAttributes.MinimumAttribKey.KeyValue then 
+                    prevMinimumOpt <- ValueSome (kvp.Value :?> float)
+                if kvp.Key = ViewAttributes.MaximumAttribKey.KeyValue then 
+                    prevMaximumOpt <- ValueSome (kvp.Value :?> float)
+                if kvp.Key = ViewAttributes.ValueAttribKey.KeyValue then 
+                    prevValueOpt <- ValueSome (kvp.Value :?> float)
         // Unsubscribe previous event handlers
-        let shouldUpdateRangeBaseValueChanged = not ((identical prevRangeBaseValueChangedOpt currRangeBaseValueChangedOpt))
-        if shouldUpdateRangeBaseValueChanged then
-            match prevRangeBaseValueChangedOpt with
+        let shouldUpdateValueChanged = not ((identical prevValueChangedOpt currValueChangedOpt))
+        if shouldUpdateValueChanged then
+            match prevValueChangedOpt with
             | ValueSome prevValue -> target.ValueChanged.RemoveHandler(prevValue)
             | ValueNone -> ()
         // Update inherited members
         ViewBuilders.UpdateFrameworkElement (prevOpt, curr, target)
         // Update properties
-        match prevRangeBaseMinimumOpt, currRangeBaseMinimumOpt with
+        match prevMinimumOpt, currMinimumOpt with
         | ValueSome prevValue, ValueSome currValue when prevValue = currValue -> ()
         | _, ValueSome currValue -> target.Minimum <-  currValue
         | ValueSome _, ValueNone -> target.Minimum <- 0.
         | ValueNone, ValueNone -> ()
-        match prevRangeBaseMaximumOpt, currRangeBaseMaximumOpt with
+        match prevMaximumOpt, currMaximumOpt with
         | ValueSome prevValue, ValueSome currValue when prevValue = currValue -> ()
         | _, ValueSome currValue -> target.Maximum <-  currValue
         | ValueSome _, ValueNone -> target.Maximum <- 1.
         | ValueNone, ValueNone -> ()
-        match prevRangeBaseValueOpt, currRangeBaseValueOpt with
+        match prevValueOpt, currValueOpt with
         | ValueSome prevValue, ValueSome currValue when prevValue = currValue -> ()
         | _, ValueSome currValue -> target.Value <-  currValue
         | ValueSome _, ValueNone -> target.Value <- 0.
         | ValueNone, ValueNone -> ()
         // Subscribe new event handlers
-        if shouldUpdateRangeBaseValueChanged then
-            match currRangeBaseValueChangedOpt with
+        if shouldUpdateValueChanged then
+            match currValueChangedOpt with
             | ValueSome currValue -> target.ValueChanged.AddHandler(currValue)
             | ValueNone -> ()
 
@@ -647,36 +647,36 @@ type ViewBuilders() =
         let attribCount = match orientation with Some _ -> attribCount + 1 | None -> attribCount
 
         let attribBuilder = ViewBuilders.BuildFrameworkElement(attribCount, ?horizontalAlignment=horizontalAlignment, ?margin=margin, ?verticalAlignment=verticalAlignment, ?width=width)
-        match children with None -> () | Some v -> attribBuilder.Add(ViewAttributes.StackPanelChildrenAttribKey, Array.ofList(v)) 
-        match orientation with None -> () | Some v -> attribBuilder.Add(ViewAttributes.StackPanelOrientationAttribKey, (v)) 
+        match children with None -> () | Some v -> attribBuilder.Add(ViewAttributes.ChildrenAttribKey, Array.ofList(v)) 
+        match orientation with None -> () | Some v -> attribBuilder.Add(ViewAttributes.OrientationAttribKey, (v)) 
         attribBuilder
 
     static member CreateStackPanel () : System.Windows.Controls.StackPanel =
         new System.Windows.Controls.StackPanel()
 
     static member UpdateStackPanel (prevOpt: ViewElement voption, curr: ViewElement, target: System.Windows.Controls.StackPanel) = 
-        let mutable prevStackPanelChildrenOpt = ValueNone
-        let mutable currStackPanelChildrenOpt = ValueNone
-        let mutable prevStackPanelOrientationOpt = ValueNone
-        let mutable currStackPanelOrientationOpt = ValueNone
+        let mutable prevChildrenOpt = ValueNone
+        let mutable currChildrenOpt = ValueNone
+        let mutable prevOrientationOpt = ValueNone
+        let mutable currOrientationOpt = ValueNone
         for kvp in curr.AttributesKeyed do
-            if kvp.Key = ViewAttributes.StackPanelChildrenAttribKey.KeyValue then 
-                currStackPanelChildrenOpt <- ValueSome (kvp.Value :?> ViewElement array)
-            if kvp.Key = ViewAttributes.StackPanelOrientationAttribKey.KeyValue then 
-                currStackPanelOrientationOpt <- ValueSome (kvp.Value :?> System.Windows.Controls.Orientation)
+            if kvp.Key = ViewAttributes.ChildrenAttribKey.KeyValue then 
+                currChildrenOpt <- ValueSome (kvp.Value :?> ViewElement array)
+            if kvp.Key = ViewAttributes.OrientationAttribKey.KeyValue then 
+                currOrientationOpt <- ValueSome (kvp.Value :?> System.Windows.Controls.Orientation)
         match prevOpt with
         | ValueNone -> ()
         | ValueSome prev ->
             for kvp in prev.AttributesKeyed do
-                if kvp.Key = ViewAttributes.StackPanelChildrenAttribKey.KeyValue then 
-                    prevStackPanelChildrenOpt <- ValueSome (kvp.Value :?> ViewElement array)
-                if kvp.Key = ViewAttributes.StackPanelOrientationAttribKey.KeyValue then 
-                    prevStackPanelOrientationOpt <- ValueSome (kvp.Value :?> System.Windows.Controls.Orientation)
+                if kvp.Key = ViewAttributes.ChildrenAttribKey.KeyValue then 
+                    prevChildrenOpt <- ValueSome (kvp.Value :?> ViewElement array)
+                if kvp.Key = ViewAttributes.OrientationAttribKey.KeyValue then 
+                    prevOrientationOpt <- ValueSome (kvp.Value :?> System.Windows.Controls.Orientation)
         // Update inherited members
         ViewBuilders.UpdateFrameworkElement (prevOpt, curr, target)
         // Update properties
-        ViewUpdaters.updateStackPanelChildren prevStackPanelChildrenOpt currStackPanelChildrenOpt target
-        match prevStackPanelOrientationOpt, currStackPanelOrientationOpt with
+        ViewUpdaters.updateStackPanelChildren prevChildrenOpt currChildrenOpt target
+        match prevOrientationOpt, currOrientationOpt with
         | ValueSome prevValue, ValueSome currValue when prevValue = currValue -> ()
         | _, ValueSome currValue -> target.Orientation <-  currValue
         | ValueSome _, ValueNone -> target.Orientation <- System.Windows.Controls.Orientation.Vertical
@@ -703,13 +703,13 @@ type ViewBuilders() =
 type FrameworkElementViewer(element: ViewElement) =
     do if not ((typeof<System.Windows.FrameworkElement>).IsAssignableFrom(element.TargetType)) then failwithf "A ViewElement assignable to type 'System.Windows.FrameworkElement' is expected, but '%s' was provided." element.TargetType.FullName
     /// Get the value of the HorizontalAlignment member
-    member this.HorizontalAlignment = element.GetAttributeKeyed(ViewAttributes.FrameworkElementHorizontalAlignmentAttribKey)
+    member this.HorizontalAlignment = element.GetAttributeKeyed(ViewAttributes.HorizontalAlignmentAttribKey)
     /// Get the value of the Margin member
-    member this.Margin = element.GetAttributeKeyed(ViewAttributes.FrameworkElementMarginAttribKey)
+    member this.Margin = element.GetAttributeKeyed(ViewAttributes.MarginAttribKey)
     /// Get the value of the VerticalAlignment member
-    member this.VerticalAlignment = element.GetAttributeKeyed(ViewAttributes.FrameworkElementVerticalAlignmentAttribKey)
+    member this.VerticalAlignment = element.GetAttributeKeyed(ViewAttributes.VerticalAlignmentAttribKey)
     /// Get the value of the Width member
-    member this.Width = element.GetAttributeKeyed(ViewAttributes.FrameworkElementWidthAttribKey)
+    member this.Width = element.GetAttributeKeyed(ViewAttributes.WidthAttribKey)
 
 /// Viewer that allows to read the properties of a ViewElement representing a ContentControl
 type ContentControlViewer(element: ViewElement) =
@@ -723,16 +723,16 @@ type WindowViewer(element: ViewElement) =
     inherit ContentControlViewer(element)
     do if not ((typeof<System.Windows.Window>).IsAssignableFrom(element.TargetType)) then failwithf "A ViewElement assignable to type 'System.Windows.Window' is expected, but '%s' was provided." element.TargetType.FullName
     /// Get the value of the Title member
-    member this.Title = element.GetAttributeKeyed(ViewAttributes.WindowTitleAttribKey)
+    member this.Title = element.GetAttributeKeyed(ViewAttributes.TitleAttribKey)
 
 /// Viewer that allows to read the properties of a ViewElement representing a ButtonBase
 type ButtonBaseViewer(element: ViewElement) =
     inherit ContentControlViewer(element)
     do if not ((typeof<System.Windows.Controls.Primitives.ButtonBase>).IsAssignableFrom(element.TargetType)) then failwithf "A ViewElement assignable to type 'System.Windows.Controls.Primitives.ButtonBase' is expected, but '%s' was provided." element.TargetType.FullName
     /// Get the value of the Command member
-    member this.Command = element.GetAttributeKeyed(ViewAttributes.ButtonBaseCommandAttribKey)
+    member this.Command = element.GetAttributeKeyed(ViewAttributes.CommandAttribKey)
     /// Get the value of the CommandCanExecute member
-    member this.CommandCanExecute = element.GetAttributeKeyed(ViewAttributes.ButtonBaseCommandCanExecuteAttribKey)
+    member this.CommandCanExecute = element.GetAttributeKeyed(ViewAttributes.CommandCanExecuteAttribKey)
 
 /// Viewer that allows to read the properties of a ViewElement representing a Button
 type ButtonViewer(element: ViewElement) =
@@ -746,11 +746,11 @@ type ToggleButtonViewer(element: ViewElement) =
     inherit ButtonBaseViewer(element)
     do if not ((typeof<System.Windows.Controls.Primitives.ToggleButton>).IsAssignableFrom(element.TargetType)) then failwithf "A ViewElement assignable to type 'System.Windows.Controls.Primitives.ToggleButton' is expected, but '%s' was provided." element.TargetType.FullName
     /// Get the value of the IsChecked member
-    member this.IsChecked = element.GetAttributeKeyed(ViewAttributes.ToggleButtonIsCheckedAttribKey)
+    member this.IsChecked = element.GetAttributeKeyed(ViewAttributes.IsCheckedAttribKey)
     /// Get the value of the Checked member
-    member this.Checked = element.GetAttributeKeyed(ViewAttributes.ToggleButtonCheckedAttribKey)
+    member this.Checked = element.GetAttributeKeyed(ViewAttributes.CheckedAttribKey)
     /// Get the value of the Unchecked member
-    member this.Unchecked = element.GetAttributeKeyed(ViewAttributes.ToggleButtonUncheckedAttribKey)
+    member this.Unchecked = element.GetAttributeKeyed(ViewAttributes.UncheckedAttribKey)
 
 /// Viewer that allows to read the properties of a ViewElement representing a CheckBox
 type CheckBoxViewer(element: ViewElement) =
@@ -762,22 +762,22 @@ type TextBlockViewer(element: ViewElement) =
     inherit FrameworkElementViewer(element)
     do if not ((typeof<System.Windows.Controls.TextBlock>).IsAssignableFrom(element.TargetType)) then failwithf "A ViewElement assignable to type 'System.Windows.Controls.TextBlock' is expected, but '%s' was provided." element.TargetType.FullName
     /// Get the value of the Text member
-    member this.Text = element.GetAttributeKeyed(ViewAttributes.TextBlockTextAttribKey)
+    member this.Text = element.GetAttributeKeyed(ViewAttributes.TextAttribKey)
     /// Get the value of the TextAlignment member
-    member this.TextAlignment = element.GetAttributeKeyed(ViewAttributes.TextBlockTextAlignmentAttribKey)
+    member this.TextAlignment = element.GetAttributeKeyed(ViewAttributes.TextAlignmentAttribKey)
 
 /// Viewer that allows to read the properties of a ViewElement representing a RangeBase
 type RangeBaseViewer(element: ViewElement) =
     inherit FrameworkElementViewer(element)
     do if not ((typeof<System.Windows.Controls.Primitives.RangeBase>).IsAssignableFrom(element.TargetType)) then failwithf "A ViewElement assignable to type 'System.Windows.Controls.Primitives.RangeBase' is expected, but '%s' was provided." element.TargetType.FullName
     /// Get the value of the Minimum member
-    member this.Minimum = element.GetAttributeKeyed(ViewAttributes.RangeBaseMinimumAttribKey)
+    member this.Minimum = element.GetAttributeKeyed(ViewAttributes.MinimumAttribKey)
     /// Get the value of the Maximum member
-    member this.Maximum = element.GetAttributeKeyed(ViewAttributes.RangeBaseMaximumAttribKey)
+    member this.Maximum = element.GetAttributeKeyed(ViewAttributes.MaximumAttribKey)
     /// Get the value of the Value member
-    member this.Value = element.GetAttributeKeyed(ViewAttributes.RangeBaseValueAttribKey)
+    member this.Value = element.GetAttributeKeyed(ViewAttributes.ValueAttribKey)
     /// Get the value of the ValueChanged member
-    member this.ValueChanged = element.GetAttributeKeyed(ViewAttributes.RangeBaseValueChangedAttribKey)
+    member this.ValueChanged = element.GetAttributeKeyed(ViewAttributes.ValueChangedAttribKey)
 
 /// Viewer that allows to read the properties of a ViewElement representing a Slider
 type SliderViewer(element: ViewElement) =
@@ -789,9 +789,9 @@ type StackPanelViewer(element: ViewElement) =
     inherit FrameworkElementViewer(element)
     do if not ((typeof<System.Windows.Controls.StackPanel>).IsAssignableFrom(element.TargetType)) then failwithf "A ViewElement assignable to type 'System.Windows.Controls.StackPanel' is expected, but '%s' was provided." element.TargetType.FullName
     /// Get the value of the Children member
-    member this.Children = element.GetAttributeKeyed(ViewAttributes.StackPanelChildrenAttribKey)
+    member this.Children = element.GetAttributeKeyed(ViewAttributes.ChildrenAttribKey)
     /// Get the value of the Orientation member
-    member this.Orientation = element.GetAttributeKeyed(ViewAttributes.StackPanelOrientationAttribKey)
+    member this.Orientation = element.GetAttributeKeyed(ViewAttributes.OrientationAttribKey)
 
 [<AbstractClass; Sealed>]
 type View private () =
@@ -918,129 +918,129 @@ module ViewElementExtensions =
 
     type ViewElement with
 
-        /// Adjusts the FrameworkElementHorizontalAlignment property in the visual element
-        member x.FrameworkElementHorizontalAlignment(value: System.Windows.HorizontalAlignment) = x.WithAttribute(ViewAttributes.FrameworkElementHorizontalAlignmentAttribKey, (value))
+        /// Adjusts the HorizontalAlignment property in the visual element
+        member x.HorizontalAlignment(value: System.Windows.HorizontalAlignment) = x.WithAttribute(ViewAttributes.HorizontalAlignmentAttribKey, (value))
 
-        /// Adjusts the FrameworkElementMargin property in the visual element
-        member x.FrameworkElementMargin(value: System.Windows.Thickness) = x.WithAttribute(ViewAttributes.FrameworkElementMarginAttribKey, (value))
+        /// Adjusts the Margin property in the visual element
+        member x.Margin(value: System.Windows.Thickness) = x.WithAttribute(ViewAttributes.MarginAttribKey, (value))
 
-        /// Adjusts the FrameworkElementVerticalAlignment property in the visual element
-        member x.FrameworkElementVerticalAlignment(value: System.Windows.VerticalAlignment) = x.WithAttribute(ViewAttributes.FrameworkElementVerticalAlignmentAttribKey, (value))
+        /// Adjusts the VerticalAlignment property in the visual element
+        member x.VerticalAlignment(value: System.Windows.VerticalAlignment) = x.WithAttribute(ViewAttributes.VerticalAlignmentAttribKey, (value))
 
-        /// Adjusts the FrameworkElementWidth property in the visual element
-        member x.FrameworkElementWidth(value: float) = x.WithAttribute(ViewAttributes.FrameworkElementWidthAttribKey, (value))
+        /// Adjusts the Width property in the visual element
+        member x.Width(value: float) = x.WithAttribute(ViewAttributes.WidthAttribKey, (value))
 
         /// Adjusts the ContentControlContent property in the visual element
         member x.ContentControlContent(value: ViewElement) = x.WithAttribute(ViewAttributes.ContentControlContentAttribKey, (value))
 
-        /// Adjusts the WindowTitle property in the visual element
-        member x.WindowTitle(value: string) = x.WithAttribute(ViewAttributes.WindowTitleAttribKey, (value))
+        /// Adjusts the Title property in the visual element
+        member x.Title(value: string) = x.WithAttribute(ViewAttributes.TitleAttribKey, (value))
 
-        /// Adjusts the ButtonBaseCommand property in the visual element
-        member x.ButtonBaseCommand(value: unit -> unit) = x.WithAttribute(ViewAttributes.ButtonBaseCommandAttribKey, (value))
+        /// Adjusts the Command property in the visual element
+        member x.Command(value: unit -> unit) = x.WithAttribute(ViewAttributes.CommandAttribKey, (value))
 
-        /// Adjusts the ButtonBaseCommandCanExecute property in the visual element
-        member x.ButtonBaseCommandCanExecute(value: bool) = x.WithAttribute(ViewAttributes.ButtonBaseCommandCanExecuteAttribKey, (value))
+        /// Adjusts the CommandCanExecute property in the visual element
+        member x.CommandCanExecute(value: bool) = x.WithAttribute(ViewAttributes.CommandCanExecuteAttribKey, (value))
 
         /// Adjusts the ButtonContent property in the visual element
         member x.ButtonContent(value: string) = x.WithAttribute(ViewAttributes.ButtonContentAttribKey, (value))
 
-        /// Adjusts the ToggleButtonChecked property in the visual element
-        member x.ToggleButtonChecked(value: unit -> unit) = x.WithAttribute(ViewAttributes.ToggleButtonCheckedAttribKey, (fun f -> System.Windows.RoutedEventHandler(fun _sender _args -> f()))(value))
+        /// Adjusts the Checked property in the visual element
+        member x.Checked(value: unit -> unit) = x.WithAttribute(ViewAttributes.CheckedAttribKey, (fun f -> System.Windows.RoutedEventHandler(fun _sender _args -> f()))(value))
 
-        /// Adjusts the ToggleButtonUnchecked property in the visual element
-        member x.ToggleButtonUnchecked(value: unit -> unit) = x.WithAttribute(ViewAttributes.ToggleButtonUncheckedAttribKey, (fun f -> System.Windows.RoutedEventHandler(fun _sender _args -> f()))(value))
+        /// Adjusts the Unchecked property in the visual element
+        member x.Unchecked(value: unit -> unit) = x.WithAttribute(ViewAttributes.UncheckedAttribKey, (fun f -> System.Windows.RoutedEventHandler(fun _sender _args -> f()))(value))
 
-        /// Adjusts the ToggleButtonIsChecked property in the visual element
-        member x.ToggleButtonIsChecked(value: bool option) = x.WithAttribute(ViewAttributes.ToggleButtonIsCheckedAttribKey, (value))
+        /// Adjusts the IsChecked property in the visual element
+        member x.IsChecked(value: bool option) = x.WithAttribute(ViewAttributes.IsCheckedAttribKey, (value))
 
-        /// Adjusts the TextBlockText property in the visual element
-        member x.TextBlockText(value: string) = x.WithAttribute(ViewAttributes.TextBlockTextAttribKey, (value))
+        /// Adjusts the Text property in the visual element
+        member x.Text(value: string) = x.WithAttribute(ViewAttributes.TextAttribKey, (value))
 
-        /// Adjusts the TextBlockTextAlignment property in the visual element
-        member x.TextBlockTextAlignment(value: System.Windows.TextAlignment) = x.WithAttribute(ViewAttributes.TextBlockTextAlignmentAttribKey, (value))
+        /// Adjusts the TextAlignment property in the visual element
+        member x.TextAlignment(value: System.Windows.TextAlignment) = x.WithAttribute(ViewAttributes.TextAlignmentAttribKey, (value))
 
-        /// Adjusts the RangeBaseValueChanged property in the visual element
-        member x.RangeBaseValueChanged(value: float -> unit) = x.WithAttribute(ViewAttributes.RangeBaseValueChangedAttribKey, (fun f -> System.Windows.RoutedPropertyChangedEventHandler<float>(fun _sender _args -> f _args.NewValue))(value))
+        /// Adjusts the ValueChanged property in the visual element
+        member x.ValueChanged(value: float -> unit) = x.WithAttribute(ViewAttributes.ValueChangedAttribKey, (fun f -> System.Windows.RoutedPropertyChangedEventHandler<float>(fun _sender _args -> f _args.NewValue))(value))
 
-        /// Adjusts the RangeBaseMinimum property in the visual element
-        member x.RangeBaseMinimum(value: float) = x.WithAttribute(ViewAttributes.RangeBaseMinimumAttribKey, (value))
+        /// Adjusts the Minimum property in the visual element
+        member x.Minimum(value: float) = x.WithAttribute(ViewAttributes.MinimumAttribKey, (value))
 
-        /// Adjusts the RangeBaseMaximum property in the visual element
-        member x.RangeBaseMaximum(value: float) = x.WithAttribute(ViewAttributes.RangeBaseMaximumAttribKey, (value))
+        /// Adjusts the Maximum property in the visual element
+        member x.Maximum(value: float) = x.WithAttribute(ViewAttributes.MaximumAttribKey, (value))
 
-        /// Adjusts the RangeBaseValue property in the visual element
-        member x.RangeBaseValue(value: float) = x.WithAttribute(ViewAttributes.RangeBaseValueAttribKey, (value))
+        /// Adjusts the Value property in the visual element
+        member x.Value(value: float) = x.WithAttribute(ViewAttributes.ValueAttribKey, (value))
 
-        /// Adjusts the StackPanelChildren property in the visual element
-        member x.StackPanelChildren(value: ViewElement list) = x.WithAttribute(ViewAttributes.StackPanelChildrenAttribKey, Array.ofList(value))
+        /// Adjusts the Children property in the visual element
+        member x.Children(value: ViewElement list) = x.WithAttribute(ViewAttributes.ChildrenAttribKey, Array.ofList(value))
 
-        /// Adjusts the StackPanelOrientation property in the visual element
-        member x.StackPanelOrientation(value: System.Windows.Controls.Orientation) = x.WithAttribute(ViewAttributes.StackPanelOrientationAttribKey, (value))
+        /// Adjusts the Orientation property in the visual element
+        member x.Orientation(value: System.Windows.Controls.Orientation) = x.WithAttribute(ViewAttributes.OrientationAttribKey, (value))
 
-        member inline x.With(?frameworkElementHorizontalAlignment: System.Windows.HorizontalAlignment, ?frameworkElementMargin: System.Windows.Thickness, ?frameworkElementVerticalAlignment: System.Windows.VerticalAlignment, ?frameworkElementWidth: float, ?contentControlContent: ViewElement, 
-                             ?windowTitle: string, ?buttonBaseCommand: unit -> unit, ?buttonBaseCommandCanExecute: bool, ?buttonContent: string, ?toggleButtonChecked: unit -> unit, 
-                             ?toggleButtonUnchecked: unit -> unit, ?toggleButtonIsChecked: bool option, ?textBlockText: string, ?textBlockTextAlignment: System.Windows.TextAlignment, ?rangeBaseValueChanged: float -> unit, 
-                             ?rangeBaseMinimum: float, ?rangeBaseMaximum: float, ?rangeBaseValue: float, ?stackPanelChildren: ViewElement list, ?stackPanelOrientation: System.Windows.Controls.Orientation) =
-            let x = match frameworkElementHorizontalAlignment with None -> x | Some opt -> x.FrameworkElementHorizontalAlignment(opt)
-            let x = match frameworkElementMargin with None -> x | Some opt -> x.FrameworkElementMargin(opt)
-            let x = match frameworkElementVerticalAlignment with None -> x | Some opt -> x.FrameworkElementVerticalAlignment(opt)
-            let x = match frameworkElementWidth with None -> x | Some opt -> x.FrameworkElementWidth(opt)
+        member inline x.With(?horizontalAlignment: System.Windows.HorizontalAlignment, ?margin: System.Windows.Thickness, ?verticalAlignment: System.Windows.VerticalAlignment, ?width: float, ?contentControlContent: ViewElement, 
+                             ?title: string, ?command: unit -> unit, ?commandCanExecute: bool, ?buttonContent: string, ?checked: unit -> unit, 
+                             ?unchecked: unit -> unit, ?isChecked: bool option, ?text: string, ?textAlignment: System.Windows.TextAlignment, ?valueChanged: float -> unit, 
+                             ?minimum: float, ?maximum: float, ?value: float, ?children: ViewElement list, ?orientation: System.Windows.Controls.Orientation) =
+            let x = match horizontalAlignment with None -> x | Some opt -> x.HorizontalAlignment(opt)
+            let x = match margin with None -> x | Some opt -> x.Margin(opt)
+            let x = match verticalAlignment with None -> x | Some opt -> x.VerticalAlignment(opt)
+            let x = match width with None -> x | Some opt -> x.Width(opt)
             let x = match contentControlContent with None -> x | Some opt -> x.ContentControlContent(opt)
-            let x = match windowTitle with None -> x | Some opt -> x.WindowTitle(opt)
-            let x = match buttonBaseCommand with None -> x | Some opt -> x.ButtonBaseCommand(opt)
-            let x = match buttonBaseCommandCanExecute with None -> x | Some opt -> x.ButtonBaseCommandCanExecute(opt)
+            let x = match title with None -> x | Some opt -> x.Title(opt)
+            let x = match command with None -> x | Some opt -> x.Command(opt)
+            let x = match commandCanExecute with None -> x | Some opt -> x.CommandCanExecute(opt)
             let x = match buttonContent with None -> x | Some opt -> x.ButtonContent(opt)
-            let x = match toggleButtonChecked with None -> x | Some opt -> x.ToggleButtonChecked(opt)
-            let x = match toggleButtonUnchecked with None -> x | Some opt -> x.ToggleButtonUnchecked(opt)
-            let x = match toggleButtonIsChecked with None -> x | Some opt -> x.ToggleButtonIsChecked(opt)
-            let x = match textBlockText with None -> x | Some opt -> x.TextBlockText(opt)
-            let x = match textBlockTextAlignment with None -> x | Some opt -> x.TextBlockTextAlignment(opt)
-            let x = match rangeBaseValueChanged with None -> x | Some opt -> x.RangeBaseValueChanged(opt)
-            let x = match rangeBaseMinimum with None -> x | Some opt -> x.RangeBaseMinimum(opt)
-            let x = match rangeBaseMaximum with None -> x | Some opt -> x.RangeBaseMaximum(opt)
-            let x = match rangeBaseValue with None -> x | Some opt -> x.RangeBaseValue(opt)
-            let x = match stackPanelChildren with None -> x | Some opt -> x.StackPanelChildren(opt)
-            let x = match stackPanelOrientation with None -> x | Some opt -> x.StackPanelOrientation(opt)
+            let x = match checked with None -> x | Some opt -> x.Checked(opt)
+            let x = match unchecked with None -> x | Some opt -> x.Unchecked(opt)
+            let x = match isChecked with None -> x | Some opt -> x.IsChecked(opt)
+            let x = match text with None -> x | Some opt -> x.Text(opt)
+            let x = match textAlignment with None -> x | Some opt -> x.TextAlignment(opt)
+            let x = match valueChanged with None -> x | Some opt -> x.ValueChanged(opt)
+            let x = match minimum with None -> x | Some opt -> x.Minimum(opt)
+            let x = match maximum with None -> x | Some opt -> x.Maximum(opt)
+            let x = match value with None -> x | Some opt -> x.Value(opt)
+            let x = match children with None -> x | Some opt -> x.Children(opt)
+            let x = match orientation with None -> x | Some opt -> x.Orientation(opt)
             x
 
-    /// Adjusts the FrameworkElementHorizontalAlignment property in the visual element
-    let frameworkElementHorizontalAlignment (value: System.Windows.HorizontalAlignment) (x: ViewElement) = x.FrameworkElementHorizontalAlignment(value)
-    /// Adjusts the FrameworkElementMargin property in the visual element
-    let frameworkElementMargin (value: System.Windows.Thickness) (x: ViewElement) = x.FrameworkElementMargin(value)
-    /// Adjusts the FrameworkElementVerticalAlignment property in the visual element
-    let frameworkElementVerticalAlignment (value: System.Windows.VerticalAlignment) (x: ViewElement) = x.FrameworkElementVerticalAlignment(value)
-    /// Adjusts the FrameworkElementWidth property in the visual element
-    let frameworkElementWidth (value: float) (x: ViewElement) = x.FrameworkElementWidth(value)
+    /// Adjusts the HorizontalAlignment property in the visual element
+    let horizontalAlignment (value: System.Windows.HorizontalAlignment) (x: ViewElement) = x.HorizontalAlignment(value)
+    /// Adjusts the Margin property in the visual element
+    let margin (value: System.Windows.Thickness) (x: ViewElement) = x.Margin(value)
+    /// Adjusts the VerticalAlignment property in the visual element
+    let verticalAlignment (value: System.Windows.VerticalAlignment) (x: ViewElement) = x.VerticalAlignment(value)
+    /// Adjusts the Width property in the visual element
+    let width (value: float) (x: ViewElement) = x.Width(value)
     /// Adjusts the ContentControlContent property in the visual element
     let contentControlContent (value: ViewElement) (x: ViewElement) = x.ContentControlContent(value)
-    /// Adjusts the WindowTitle property in the visual element
-    let windowTitle (value: string) (x: ViewElement) = x.WindowTitle(value)
-    /// Adjusts the ButtonBaseCommand property in the visual element
-    let buttonBaseCommand (value: unit -> unit) (x: ViewElement) = x.ButtonBaseCommand(value)
-    /// Adjusts the ButtonBaseCommandCanExecute property in the visual element
-    let buttonBaseCommandCanExecute (value: bool) (x: ViewElement) = x.ButtonBaseCommandCanExecute(value)
+    /// Adjusts the Title property in the visual element
+    let title (value: string) (x: ViewElement) = x.Title(value)
+    /// Adjusts the Command property in the visual element
+    let command (value: unit -> unit) (x: ViewElement) = x.Command(value)
+    /// Adjusts the CommandCanExecute property in the visual element
+    let commandCanExecute (value: bool) (x: ViewElement) = x.CommandCanExecute(value)
     /// Adjusts the ButtonContent property in the visual element
     let buttonContent (value: string) (x: ViewElement) = x.ButtonContent(value)
-    /// Adjusts the ToggleButtonChecked property in the visual element
-    let toggleButtonChecked (value: unit -> unit) (x: ViewElement) = x.ToggleButtonChecked(value)
-    /// Adjusts the ToggleButtonUnchecked property in the visual element
-    let toggleButtonUnchecked (value: unit -> unit) (x: ViewElement) = x.ToggleButtonUnchecked(value)
-    /// Adjusts the ToggleButtonIsChecked property in the visual element
-    let toggleButtonIsChecked (value: bool option) (x: ViewElement) = x.ToggleButtonIsChecked(value)
-    /// Adjusts the TextBlockText property in the visual element
-    let textBlockText (value: string) (x: ViewElement) = x.TextBlockText(value)
-    /// Adjusts the TextBlockTextAlignment property in the visual element
-    let textBlockTextAlignment (value: System.Windows.TextAlignment) (x: ViewElement) = x.TextBlockTextAlignment(value)
-    /// Adjusts the RangeBaseValueChanged property in the visual element
-    let rangeBaseValueChanged (value: float -> unit) (x: ViewElement) = x.RangeBaseValueChanged(value)
-    /// Adjusts the RangeBaseMinimum property in the visual element
-    let rangeBaseMinimum (value: float) (x: ViewElement) = x.RangeBaseMinimum(value)
-    /// Adjusts the RangeBaseMaximum property in the visual element
-    let rangeBaseMaximum (value: float) (x: ViewElement) = x.RangeBaseMaximum(value)
-    /// Adjusts the RangeBaseValue property in the visual element
-    let rangeBaseValue (value: float) (x: ViewElement) = x.RangeBaseValue(value)
-    /// Adjusts the StackPanelChildren property in the visual element
-    let stackPanelChildren (value: ViewElement list) (x: ViewElement) = x.StackPanelChildren(value)
-    /// Adjusts the StackPanelOrientation property in the visual element
-    let stackPanelOrientation (value: System.Windows.Controls.Orientation) (x: ViewElement) = x.StackPanelOrientation(value)
+    /// Adjusts the Checked property in the visual element
+    let checked (value: unit -> unit) (x: ViewElement) = x.Checked(value)
+    /// Adjusts the Unchecked property in the visual element
+    let unchecked (value: unit -> unit) (x: ViewElement) = x.Unchecked(value)
+    /// Adjusts the IsChecked property in the visual element
+    let isChecked (value: bool option) (x: ViewElement) = x.IsChecked(value)
+    /// Adjusts the Text property in the visual element
+    let text (value: string) (x: ViewElement) = x.Text(value)
+    /// Adjusts the TextAlignment property in the visual element
+    let textAlignment (value: System.Windows.TextAlignment) (x: ViewElement) = x.TextAlignment(value)
+    /// Adjusts the ValueChanged property in the visual element
+    let valueChanged (value: float -> unit) (x: ViewElement) = x.ValueChanged(value)
+    /// Adjusts the Minimum property in the visual element
+    let minimum (value: float) (x: ViewElement) = x.Minimum(value)
+    /// Adjusts the Maximum property in the visual element
+    let maximum (value: float) (x: ViewElement) = x.Maximum(value)
+    /// Adjusts the Value property in the visual element
+    let value (value: float) (x: ViewElement) = x.Value(value)
+    /// Adjusts the Children property in the visual element
+    let children (value: ViewElement list) (x: ViewElement) = x.Children(value)
+    /// Adjusts the Orientation property in the visual element
+    let orientation (value: System.Windows.Controls.Orientation) (x: ViewElement) = x.Orientation(value)
