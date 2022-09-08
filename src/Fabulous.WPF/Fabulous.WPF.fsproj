@@ -1,22 +1,33 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UseWPF>true</UseWPF>
+    <TargetFramework>net6.0-windows</TargetFramework>
+	<UseWPF>true</UseWPF>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="..\Fabulous.WPF.Core\ViewHelpers.fs" Link="ViewHelpers.fs" />
-    <Compile Include="..\Fabulous.WPF.Core\Program.fs" Link="Program.fs" />
-    <Compile Include="..\Fabulous.WPF.Core\ViewConverters.fs" Link="ViewConverters.fs" />
-    <Compile Include="..\Fabulous.WPF.Core\ViewUpdaters.fs" Link="ViewUpdaters.fs" />
-    <Compile Include="WPF.fs" />
-    <None Include="WPF.json" />
+	<Compile Include="ViewNode.fs" />
+	<Compile Include="Attributes.fs" />
+	<Compile Include="VirtualizedCollection.fs" />
+	<Compile Include="Widgets.fs" />
+	<Compile Include="Views\_FrameworkElement.fs" />
+	<Compile Include="Views\Controls\_Control.fs" />
+	<Compile Include="Views\Controls\_ContentControl.fs" />
+	<Compile Include="Views\Controls\TextBlock.fs" />
+	<Compile Include="Views\Controls\Window.fs" />
+	<Compile Include="Views\Controls\_Panel.fs" />
+	<Compile Include="Views\Controls\StackPanel.fs" />
+	<Compile Include="Views\Controls\_ButtonBase.fs" />
+	<Compile Include="Views\Controls\Button.fs" />
+	<Compile Include="Views\Controls\_ToggleButton.fs" />
+	<Compile Include="Views\Controls\CheckBox.fs" />
+	<Compile Include="Views\Controls\_RangeBase.fs" />
+	<Compile Include="Views\Controls\Slider.fs" />
+	<Compile Include="Program.fs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fabulous" Version="0.53.0" />
-    <PackageReference Update="FSharp.Core" Version="4.7.1" />
+    <PackageReference Include="Fabulous" Version="2.0.7" />
   </ItemGroup>
 
 </Project>
