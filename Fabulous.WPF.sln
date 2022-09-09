@@ -9,7 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5288C4F5-270
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Fabulous.WPF", "src\Fabulous.WPF\Fabulous.WPF.fsproj", "{3DA383C4-23FA-432A-A3D8-2E0C2F4A3559}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CounterApp", "samples\CounterApp\CounterApp.fsproj", "{537E7CEE-35F6-4AEC-B0B0-5D9D240C8145}"
+Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "CounterApp", "samples\CounterApp\CounterApp.fsproj", "{537E7CEE-35F6-4AEC-B0B0-5D9D240C8145}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "TicTacToe", "samples\TicTacToe\TicTacToe.fsproj", "{60284EA2-A6EB-43F8-94BA-DF4D9896EA00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,6 +27,10 @@ Global
 		{537E7CEE-35F6-4AEC-B0B0-5D9D240C8145}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{537E7CEE-35F6-4AEC-B0B0-5D9D240C8145}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{537E7CEE-35F6-4AEC-B0B0-5D9D240C8145}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60284EA2-A6EB-43F8-94BA-DF4D9896EA00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60284EA2-A6EB-43F8-94BA-DF4D9896EA00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60284EA2-A6EB-43F8-94BA-DF4D9896EA00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60284EA2-A6EB-43F8-94BA-DF4D9896EA00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +38,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{3DA383C4-23FA-432A-A3D8-2E0C2F4A3559} = {5288C4F5-2701-45E9-8CAE-CCA48E0FEC82}
 		{537E7CEE-35F6-4AEC-B0B0-5D9D240C8145} = {5C881035-88A7-4365-85AE-09FBBA1C13DE}
+		{60284EA2-A6EB-43F8-94BA-DF4D9896EA00} = {5C881035-88A7-4365-85AE-09FBBA1C13DE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DDC4AE63-64A8-4A33-AD63-BA6A92F0EEA2}

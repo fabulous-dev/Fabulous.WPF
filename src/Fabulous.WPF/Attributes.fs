@@ -3,7 +3,9 @@
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions
 open System
+open System.Runtime.CompilerServices
 open System.Windows
+open System.Windows.Media
 
 [<Struct>]
 type ValueEventData<'data, 'eventArgs> =
@@ -12,6 +14,49 @@ type ValueEventData<'data, 'eventArgs> =
 
 module ValueEventData =
     let create (value: 'data) (event: 'eventArgs -> obj) = { Value = value; Event = event }
+
+/// WPF specific attributes that can be encoded as 8 bytes
+module SmallScalars =
+    module FabColor =
+        let inline encode (v: FabColor) : uint64 = SmallScalars.UInt.encode v.RGBA
+
+        let inline decode (encoded: uint64) : FabColor =
+            { RGBA = SmallScalars.UInt.decode encoded }
+
+        let inline encodeSolidBrush (v: SolidColorBrush) : uint64 =
+            let fabColor = ColorConversion.ToFabColor v
+            SmallScalars.UInt.encode fabColor.RGBA             
+        
+        let inline decodeSolidBrush (encoded: uint64) : SolidColorBrush =
+            let fabColor = { RGBA = SmallScalars.UInt.decode encoded }
+            ColorConversion.ToSolidBrush fabColor
+
+[<Extension>]
+type SmallScalarExtensions() =
+    [<Extension>]
+    static member inline WithValue(this: SmallScalarAttributeDefinition<bool>, value) =
+        this.WithValue(value, SmallScalars.Bool.encode)
+
+    [<Extension>]
+    static member inline WithValue(this: SmallScalarAttributeDefinition<float>, value) =
+        this.WithValue(value, SmallScalars.Float.encode)
+
+    [<Extension>]
+    static member inline WithValue(this: SmallScalarAttributeDefinition<int>, value) =
+        this.WithValue(value, SmallScalars.Int.encode)
+
+    [<Extension>]
+    static member inline WithValue(this: SmallScalarAttributeDefinition<SolidColorBrush>, value) =
+        this.WithValue(value, SmallScalars.FabColor.encodeSolidBrush)
+
+    [<Extension>]
+    static member inline WithValue< ^T when ^T: enum<int> and ^T: (static member op_Explicit: ^T -> uint64)>
+        (
+            this: SmallScalarAttributeDefinition< ^T >,
+            value
+        ) =
+        this.WithValue(value, SmallScalars.IntEnum.encode)
+
 
 module Attributes =
     /// Define an attribute for a DependencyProperty
@@ -65,6 +110,33 @@ module Attributes =
     /// Define an int attribute for a DependencyProperty and encode it as a small scalar (8 bytes)
     let inline defineDependencyInt (dependencyProperty: DependencyProperty) =
         defineSmallDependency dependencyProperty SmallScalars.Int.decode
+
+    /// Define a Color attribute for a DependencyProperty and encode it as a small scalar (8 bytes).
+    /// Note that the input type is FabColor because it is just 4 bytes
+    /// But it converts back to Windows.Media.Color when a value is applied
+    /// Note if you want to use Windows.Media.Color directly you can do that with "defineDependency".
+    /// However, WPF.Color will be boxed and thus slower.
+    let inline defineDependencyColor (dependencyProperty: DependencyProperty) : SmallScalarAttributeDefinition<FabColor> =
+        Attributes.defineSmallScalar<FabColor>
+            dependencyProperty.Name
+            SmallScalars.FabColor.decode
+            (fun _ newValueOpt node ->
+                let target = node.Target :?> DependencyObject
+
+                match newValueOpt with
+                | ValueNone -> target.ClearValue(dependencyProperty)
+                | ValueSome v -> target.SetValue(dependencyProperty, v.ToWPFColor()))
+
+    let inline defineDependencySolidBrush (dependencyProperty: DependencyProperty) : SmallScalarAttributeDefinition<SolidColorBrush> =
+        Attributes.defineSmallScalar<SolidColorBrush>
+            dependencyProperty.Name
+            SmallScalars.FabColor.decodeSolidBrush
+            (fun _ newValueOpt node ->
+                let target = node.Target :?> DependencyObject
+
+                match newValueOpt with
+                | ValueNone -> target.ClearValue(dependencyProperty)
+                | ValueSome v -> target.SetValue(dependencyProperty, v))
 
     /// Define an enum attribute for a DependencyProperty and encode it as a small scalar (8 bytes)
     let inline defineDependencyEnum< ^T when ^T: enum<int>>

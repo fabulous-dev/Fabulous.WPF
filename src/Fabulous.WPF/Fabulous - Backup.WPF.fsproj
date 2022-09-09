@@ -13,13 +13,13 @@
 	<Compile Include="VirtualizedCollection.fs" />
 	<Compile Include="Widgets.fs" />
 	<Compile Include="Views\_FrameworkElement.fs" />
-	<Compile Include="Views\Panels\_Panel.fs" />
-	<Compile Include="Views\Panels\StackPanel.fs" />
-	<Compile Include="Views\Panels\Grid.fs" />
 	<Compile Include="Views\Controls\_Control.fs" />
 	<Compile Include="Views\Controls\_ContentControl.fs" />
 	<Compile Include="Views\Controls\TextBlock.fs" />
+	<Compile Include="Views\Controls\Grid.fs" />
 	<Compile Include="Views\Controls\Window.fs" />
+	<Compile Include="Views\Controls\_Panel.fs" />
+	<Compile Include="Views\Controls\StackPanel.fs" />
 	<Compile Include="Views\Controls\_ButtonBase.fs" />
 	<Compile Include="Views\Controls\Button.fs" />
 	<Compile Include="Views\Controls\_ToggleButton.fs" />
