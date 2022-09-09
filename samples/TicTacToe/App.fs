@@ -177,11 +177,13 @@ module App =
 
     /// A helper used in the 'view' function to get the name
     /// of the Xaml resource for the image for a player
-    let imageForPos cell =
-        match cell with
-        | Full X -> "Cross.png"            
-        | Full O -> "Nought.png"            
-        | Empty -> ""
+    let imageForPos cell : ImageSource =
+        let imageName =
+            match cell with
+            | Full X -> "Cross.png"            
+            | Full O -> "Nought.png"            
+            | Empty -> ""
+        ImageSourceConverter().ConvertFromString imageName :?> ImageSource           
 
     /// A helper to get the suffix used in the Xaml for a position on the board.
     let uiText (row, col) = sprintf "%d%d" row col
@@ -230,16 +232,12 @@ module App =
                                 .background(Colors.lightBlue |> ColorConversion.ToSolidBrush)
                                 .gridRow(row * 2)
                                 .gridColumn(col * 2)
-                        else
-                            Button("", Play pos)
-                                .background(Colors.lightBlue |> ColorConversion.ToSolidBrush)
+                        else                           
+                            Image(imageForPos model.Board.[pos])
+                                //.center()
+                                .margin(10.)
                                 .gridRow(row * 2)
                                 .gridColumn(col * 2)
-                            //Image(Aspect.AspectFit, imageForPos model.Board.[pos])
-                            //    .center()
-                            //    .margin(10.)
-                            //    .gridRow(row * 2)
-                            //    .gridColumn(col * 2)
                  })
                     //.rowSpacing(0.)
                     //.columnSpacing(0.)

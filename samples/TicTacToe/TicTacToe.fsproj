@@ -6,7 +6,11 @@
 	<UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup />
+
   <ItemGroup>
+    <Content Include="Resources\Cross.png" />
+    <Content Include="Resources\Nought.png" />
     <Compile Include="App.fs" />
     <Compile Include="Main.fs" />
   </ItemGroup>

@@ -10,22 +10,23 @@
 	<Compile Include="FabColor.fs" />
 	<Compile Include="Attributes.fs" />
 	<Compile Include="Controls.fs" />
+	<Compile Include="FrameworkElements\_FrameworkElement.fs" />
 	<Compile Include="VirtualizedCollection.fs" />
 	<Compile Include="Widgets.fs" />
-	<Compile Include="Views\_FrameworkElement.fs" />
-	<Compile Include="Views\Panels\_Panel.fs" />
-	<Compile Include="Views\Panels\StackPanel.fs" />
-	<Compile Include="Views\Panels\Grid.fs" />
-	<Compile Include="Views\Controls\_Control.fs" />
-	<Compile Include="Views\Controls\_ContentControl.fs" />
-	<Compile Include="Views\Controls\TextBlock.fs" />
-	<Compile Include="Views\Controls\Window.fs" />
-	<Compile Include="Views\Controls\_ButtonBase.fs" />
-	<Compile Include="Views\Controls\Button.fs" />
-	<Compile Include="Views\Controls\_ToggleButton.fs" />
-	<Compile Include="Views\Controls\CheckBox.fs" />
-	<Compile Include="Views\Controls\_RangeBase.fs" />
-	<Compile Include="Views\Controls\Slider.fs" />
+	<Compile Include="FrameworkElements\Panels\_Panel.fs" />
+	<Compile Include="FrameworkElements\Panels\StackPanel.fs" />
+	<Compile Include="FrameworkElements\Panels\Grid.fs" />
+	<Compile Include="FrameworkElements\Controls\_Control.fs" />
+	<Compile Include="FrameworkElements\Controls\_ContentControl.fs" />
+	<Compile Include="FrameworkElements\Controls\Image.fs" />
+	<Compile Include="FrameworkElements\Controls\TextBlock.fs" />
+	<Compile Include="FrameworkElements\Controls\Window.fs" />
+	<Compile Include="FrameworkElements\Controls\_ButtonBase.fs" />
+	<Compile Include="FrameworkElements\Controls\Button.fs" />
+	<Compile Include="FrameworkElements\Controls\_ToggleButton.fs" />
+	<Compile Include="FrameworkElements\Controls\CheckBox.fs" />
+	<Compile Include="FrameworkElements\Controls\_RangeBase.fs" />
+	<Compile Include="FrameworkElements\Controls\Slider.fs" />
 	<Compile Include="Program.fs" />
   </ItemGroup>
 
