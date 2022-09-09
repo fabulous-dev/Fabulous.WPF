@@ -199,14 +199,6 @@ module App =
         let lightBlue = Colors.LightBlue.ToFabColor()
 
     /// The dynamic 'view' function giving the updated content for the view
-
-    //let view model =
-    //    Window(
-    //        "TicTacToe",
-    //        (Grid() {
-    //        })
-    //    )
-
     let view model =
         Window(
             "TicTacToe",
@@ -221,11 +213,6 @@ module App =
                                     Star
                                     Absolute 5.0
                                     Star ]) {
-                    TextBlock("X").gridRow(1).gridColumnSpan(5)
-                    TextBlock("X").gridRow(3).gridColumnSpan(5)
-                    TextBlock("X").gridColumn(1).gridRowSpan(5)
-                    TextBlock("X").gridColumn(3).gridRowSpan(5)
-
                     for row, col as pos in positions do
                         if canPlay model model.Board.[pos] then
                             Button("", Play pos)
