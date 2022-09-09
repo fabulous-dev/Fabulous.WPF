@@ -395,7 +395,8 @@ module Attributes =
                     prevItemNode.Disconnect()
 
                     // Replace the existing child in the UI tree at the index with the new one
-                    targetColl.[index] <- unbox view
+                    targetColl.RemoveAt(index)
+                    targetColl.Insert(index, unbox view)
 
                     // Trigger the mounted event for the new child
                     Dispatcher.dispatchEventForAllChildren nextItemNode newWidget Lifecycle.Mounted
