@@ -183,7 +183,7 @@ module App =
             | Full X -> "Cross.png"            
             | Full O -> "Nought.png"            
             | Empty -> ""
-        ImageSourceConverter().ConvertFromString imageName :?> ImageSource           
+        ImageSourceConversion.FromString(imageName)        
 
     /// A helper to get the suffix used in the Xaml for a position on the board.
     let uiText (row, col) = sprintf "%d%d" row col
