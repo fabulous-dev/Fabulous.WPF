@@ -41,6 +41,7 @@ type Msg =
     | Play of Pos
     | Restart
     | VisualBoardSizeChanged of SizeAllocatedEventArgs
+    | Ignore
 
 /// Represents the state of the game board
 type Board = Map<Pos, GameCell>
@@ -219,10 +220,15 @@ module App =
                                 .background(Colors.lightBlue.ToSolidBrush())
                                 .gridRow(row * 2)
                                 .gridColumn(col * 2)
-                        else                           
+                        else if model.Board.[pos] <>  Empty then                          
                             Image(imageForPos model.Board.[pos])
                                 .center()
                                 .margin(10.)
+                                .gridRow(row * 2)
+                                .gridColumn(col * 2)
+                        else
+                            Button("", Ignore)
+                                .background(Colors.lightBlue.ToSolidBrush())
                                 .gridRow(row * 2)
                                 .gridColumn(col * 2)
                  })                    
