@@ -263,10 +263,10 @@ module App =
     // this dependency out to allow unit testing of the 'update' function.
 
     let gameOver msg =
-        Application.Current.Dispatcher.Invoke
+        Application.Current.Dispatcher.InvokeAsync
             (fun () ->
                 MessageBox.Show("Game over", msg)
-                |> ignore)
+                |> ignore) |> ignore
 
     let program =
         Program.stateful init (update gameOver) view
