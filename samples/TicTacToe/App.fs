@@ -195,7 +195,7 @@ module App =
         && (getGameResult model = StillPlaying)
 
     module private Colors =
-        let black = Colors.Black.ToFabColor()
+        let black = Colors.Black.ToFabColor()       
         let lightBlue = Colors.LightBlue.ToFabColor()
 
     /// The dynamic 'view' function giving the updated content for the view
@@ -216,34 +216,30 @@ module App =
                     for row, col as pos in positions do
                         if canPlay model model.Board.[pos] then
                             Button("", Play pos)
-                                .background(Colors.lightBlue |> ColorConversion.ToSolidBrush)
+                                .background(Colors.lightBlue.ToSolidBrush())
                                 .gridRow(row * 2)
                                 .gridColumn(col * 2)
                         else                           
                             Image(imageForPos model.Board.[pos])
-                                //.center()
+                                .center()
                                 .margin(10.)
                                 .gridRow(row * 2)
                                 .gridColumn(col * 2)
-                 })
-                    //.rowSpacing(0.)
-                    //.columnSpacing(0.)
-                    //.center()
-                    //.size(?width = model.VisualBoardSize, ?height = model.VisualBoardSize)
+                 })                    
+                    //.center()                    
                     .gridRow(0)
-
-                //Label(getMessage model)
+                
                 TextBlock(getMessage model)
-                    //.textColor(Colors.black)
-                    //.font(namedSize = NamedSize.Large)
-                    //.center()
-                    //.margin(10.)
+                    .foreground(Colors.black.ToSolidBrush())
+                    .fontSize(16)
+                    .center()
+                    .margin(10.)
                     .gridRow(1)
 
                 Button("Restart game", Restart)
-                    //.textColor(Colors.black)
-                    //.backgroundColor(Colors.lightBlue)
-                    //.font(namedSize = NamedSize.Large)
+                    .foreground(Colors.black.ToSolidBrush())
+                    .background(Colors.lightBlue.ToSolidBrush())
+                    .height(20)
                     .gridRow(2)
             }
         )

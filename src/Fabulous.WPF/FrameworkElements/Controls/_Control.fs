@@ -19,3 +19,7 @@ type ControlModifiers =
     static member inline background(this: WidgetBuilder<'msg, #IFrameworkElement>, value: SolidColorBrush) =
         this.AddScalar(Control.Background.WithValue(value))
 
+    [<Extension>]
+    static member inline foreground(this: WidgetBuilder<'msg, #IFrameworkElement>, value: SolidColorBrush) =
+        this.AddScalar(Control.Foreground.WithValue(value))
+
