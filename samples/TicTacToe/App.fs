@@ -148,7 +148,7 @@ module App =
     /// The 'update' function to update the model
     let update gameOver msg model =
         match msg with
-        | Play pos ->
+        | Play pos ->                
             if not (canPlay model model.Board.[pos]) then
                 model
             else    
@@ -197,9 +197,7 @@ module App =
 
     /// A helper to get the suffix used in the Xaml for a position on the board.
     let uiText (row, col) = sprintf "%d%d" row col
-
-   
-
+    
     module private Colors =
         let black = Colors.Black.ToFabColor()       
         let lightBlue = Colors.LightBlue.ToFabColor()
@@ -231,8 +229,7 @@ module App =
                                 .margin(10.)
                                 .gridRow(row * 2)
                                 .gridColumn(col * 2)
-                 })                    
-                    //.center()                    
+                 })                                      
                     .gridRow(0)
                 
                 TextBlock(getMessage model)
@@ -248,14 +245,7 @@ module App =
                     .height(20)
                     .gridRow(2)
             }
-        )
-
-                //match model.VisualBoardSize with
-                //| None -> contentPage.onSizeAllocated(VisualBoardSizeChanged)
-                //| Some _ -> contentPage
-             //})
-             //   .barBackgroundColor(Colors.lightBlue)
-             //   .barTextColor(Colors.black)
+        )                
     )
 
     // Display a modal message giving the game result. This is doing a UI

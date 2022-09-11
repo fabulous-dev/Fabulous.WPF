@@ -1,6 +1,5 @@
 ﻿namespace Fabulous.WPF
 
-open System.Windows
 open System.Windows.Media
 open System.Runtime.CompilerServices
 open Fabulous
