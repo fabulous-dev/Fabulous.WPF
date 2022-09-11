@@ -139,32 +139,41 @@ module App =
         | Win p -> sprintf "%s wins!" p.Name
         | Draw -> "It is a draw!"
 
+    /// A condition used in the 'view' function to check if we can play in a cell.
+    /// The visual contents of a cell depends on this condition.
+    let canPlay model cell =
+        (cell = Empty)
+        && (getGameResult model = StillPlaying)
+
     /// The 'update' function to update the model
     let update gameOver msg model =
         match msg with
         | Play pos ->
-            let newModel =
-                { model with
-                      Board = model.Board.Add(pos, Full model.NextUp)
-                      NextUp = model.NextUp.Swap }
+            if not (canPlay model model.Board.[pos]) then
+                model
+            else    
+                let newModel =
+                    { model with
+                          Board = model.Board.Add(pos, Full model.NextUp)
+                          NextUp = model.NextUp.Swap }
 
-            // Make an announcement in the middle of the game.
-            let result = getGameResult newModel
+                // Make an announcement in the middle of the game.
+                let result = getGameResult newModel
 
-            if result <> StillPlaying then
-                gameOver(getMessage newModel)
+                if result <> StillPlaying then
+                    gameOver(getMessage newModel)
 
-            let newModel2 =
-                let x, y = newModel.GameScore
+                let newModel2 =
+                    let x, y = newModel.GameScore
 
-                match result with
-                | Win p ->
-                    { newModel with
-                          GameScore = (if p = X then (x + 1, y) else (x, y + 1)) }
-                | _ -> newModel
+                    match result with
+                    | Win p ->
+                        { newModel with
+                              GameScore = (if p = X then (x + 1, y) else (x, y + 1)) }
+                    | _ -> newModel
 
-            // Return the new model.
-            newModel2
+                // Return the new model.
+                newModel2
         | Restart ->
             { model with
                   NextUp = X
@@ -189,11 +198,7 @@ module App =
     /// A helper to get the suffix used in the Xaml for a position on the board.
     let uiText (row, col) = sprintf "%d%d" row col
 
-    /// A condition used in the 'view' function to check if we can play in a cell.
-    /// The visual contents of a cell depends on this condition.
-    let canPlay model cell =
-        (cell = Empty)
-        && (getGameResult model = StillPlaying)
+   
 
     module private Colors =
         let black = Colors.Black.ToFabColor()       
@@ -215,20 +220,15 @@ module App =
                                     Absolute 5.0
                                     Star ]) {
                     for row, col as pos in positions do
-                        if canPlay model model.Board.[pos] then
+                        if model.Board.[pos] = Empty then
                             Button("", Play pos)
                                 .background(Colors.lightBlue.ToSolidBrush())
                                 .gridRow(row * 2)
                                 .gridColumn(col * 2)
-                        else if model.Board.[pos] <>  Empty then                          
+                        else                         
                             Image(imageForPos model.Board.[pos])
                                 .center()
                                 .margin(10.)
-                                .gridRow(row * 2)
-                                .gridColumn(col * 2)
-                        else
-                            Button("", Ignore)
-                                .background(Colors.lightBlue.ToSolidBrush())
                                 .gridRow(row * 2)
                                 .gridColumn(col * 2)
                  })                    
