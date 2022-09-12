@@ -189,8 +189,8 @@ module App =
     /// of the Xaml resource for the image for a player
     let imageForPos cell =
         match cell with
-        | Full X -> "Resources\Cross.png"            
-        | Full O -> "Resources\Nought.png"            
+        | Full X -> "Resources\\Cross.png"            
+        | Full O -> "Resources\\Nought.png"            
         | Empty -> ""      
 
     /// A helper to get the suffix used in the Xaml for a position on the board.
