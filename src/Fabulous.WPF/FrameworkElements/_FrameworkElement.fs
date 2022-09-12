@@ -9,6 +9,10 @@ type IFrameworkElement =
     end
 
 module FrameworkElement =
+    let Width = Attributes.defineDependencyWithEquality<double> FrameworkElement.WidthProperty
+    
+    let Height = Attributes.defineDependencyWithEquality<double> FrameworkElement.HeightProperty   
+
     let Margin = Attributes.defineDependencyWithEquality<Thickness> FrameworkElement.MarginProperty
 
     let HorizontalAlignment = Attributes.defineDependencyWithEquality<HorizontalAlignment> FrameworkElement.HorizontalAlignmentProperty
@@ -17,6 +21,14 @@ module FrameworkElement =
 
 [<Extension>]
 type FrameworkElementModifiers =
+    [<Extension>]
+    static member inline width(this: WidgetBuilder<'msg, #IFrameworkElement>, value: double) =
+        this.AddScalar(FrameworkElement.Width.WithValue(value))
+
+    [<Extension>]
+    static member inline height(this: WidgetBuilder<'msg, #IFrameworkElement>, value: double) =
+        this.AddScalar(FrameworkElement.Height.WithValue(value))
+
     [<Extension>]
     static member inline margin(this: WidgetBuilder<'msg, #IFrameworkElement>, value: Thickness) =
         this.AddScalar(FrameworkElement.Margin.WithValue(value))
@@ -46,3 +58,8 @@ type FrameworkElementExtraModifiers =
     [<Extension>]
     static member inline centerVertical(this: WidgetBuilder<'msg, #IFrameworkElement>) =
         this.verticalAlignment(VerticalAlignment.Center)
+
+    [<Extension>]
+    static member inline center(this: WidgetBuilder<'msg, #IFrameworkElement>) =
+        this.verticalAlignment(VerticalAlignment.Center) |> ignore
+        this.horizontalAlignment(HorizontalAlignment.Center)

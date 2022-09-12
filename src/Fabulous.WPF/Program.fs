@@ -3,7 +3,6 @@
 open Fabulous
 open Fabulous.ScalarAttributeDefinitions
 open Fabulous.WidgetCollectionAttributeDefinitions
-open System
 open System.Windows
 open System.Diagnostics
 
@@ -93,17 +92,20 @@ module Program =
             (fun arg -> let m, c = init arg in m, mapCmds c)
             (fun msg model -> let m, c = update msg model in m, mapCmds c)
             view
+            
+    /// Start the program
+    let startWithArgs (app: Application) (arg: 'arg) (program: Program<'arg, 'model, 'msg, #IWindow>) : unit =
+        let runner = Runners.create program
+        runner.Start(arg)
+        let adapter = ViewAdapters.create ViewNode.get runner
+        let window = adapter.CreateView() |> unbox
 
-    ///// Start the program
-    //let startApplicationWithArgs (arg: 'arg) (program: Program<'arg, 'model, 'msg, #IApplication>) : Application =
-    //    let runner = Runners.create program
-    //    runner.Start(arg)
-    //    let adapter = ViewAdapters.create ViewNode.get runner
-    //    adapter.CreateView() |> unbox
+        app.MainWindow <- window
+        window.Show()
 
-    ///// Start the program
-    //let startApplication (program: Program<unit, 'model, 'msg, 'marker>) : Application =
-    //    startApplicationWithArgs() program
+    /// Start the program
+    let start (app: Application) (program: Program<unit, 'model, 'msg, 'marker>) : unit =
+        startWithArgs app () program
 
     /// Subscribe to external source of events.
     /// The subscription is called once - with the initial model, but can dispatch new messages at any time.

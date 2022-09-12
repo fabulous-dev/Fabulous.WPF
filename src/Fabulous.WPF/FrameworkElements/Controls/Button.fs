@@ -8,7 +8,19 @@ type IButton =
 
 module Button =
     let WidgetKey = Widgets.register<Button>()
+            
+    let Background =
+        Attributes.defineDependencySolidBrush Button.BackgroundProperty
 
+    let Foreground =
+        Attributes.defineDependencySolidBrush Button.ForegroundProperty
+
+    let FontFamily =
+        Attributes.defineDependencyWithEquality<string> Button.FontFamilyProperty
+
+    let FontSize =
+        Attributes.defineDependencyFloat Button.FontSizeProperty
+        
 [<AutoOpen>]
 module ButtonBuilders =
     type Fabulous.WPF.View with

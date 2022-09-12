@@ -13,6 +13,8 @@ module TextBlock =
 
     let Text = Attributes.defineDependencyWithEquality<string> TextBlock.TextProperty
 
+    let FontSize = Attributes.defineDependencyWithEquality<double> TextBlock.FontSizeProperty
+
     let TextAlignment = Attributes.defineDependencyWithEquality<TextAlignment> TextBlock.TextAlignmentProperty
 
 [<AutoOpen>]
@@ -26,6 +28,10 @@ type TextBlockModifiers =
     [<Extension>]
     static member inline textAlignment(this: WidgetBuilder<'msg, #ITextBlock>, value: TextAlignment) =
         this.AddScalar(TextBlock.TextAlignment.WithValue(value))
+
+    [<Extension>]
+    static member inline fontSize(this: WidgetBuilder<'msg, #ITextBlock>, value: double) =
+        this.AddScalar(TextBlock.FontSize.WithValue(value))
 
 [<Extension>]
 type TextBlockExtraModifiers =
