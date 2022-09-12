@@ -81,14 +81,5 @@ module App =
     let program = Program.statefulWithCmd init update view
 
 type App() as app =
-    inherit Application()
-
-    do app.ShutdownMode <- ShutdownMode.OnMainWindowClose
-
-    let runner = Runners.create App.program
-    do runner.Start()
-
-    let adapter = ViewAdapters.create ViewNode.get runner
-    let window = adapter.CreateView() |> unbox<Window>
-    do app.MainWindow <- window
-    do window.Show()
+    inherit Application(ShutdownMode = ShutdownMode.OnMainWindowClose)
+    do Program.start app App.program

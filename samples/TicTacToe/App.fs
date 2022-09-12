@@ -187,13 +187,11 @@ module App =
 
     /// A helper used in the 'view' function to get the name
     /// of the Xaml resource for the image for a player
-    let imageForPos cell : ImageSource =
-        let imageName =
-            match cell with
-            | Full X -> "Cross.png"            
-            | Full O -> "Nought.png"            
-            | Empty -> ""
-        ImageSourceConversion.FromString(imageName)        
+    let imageForPos cell =
+        match cell with
+        | Full X -> "Resources\Cross.png"            
+        | Full O -> "Resources\Nought.png"            
+        | Empty -> ""      
 
     /// A helper to get the suffix used in the Xaml for a position on the board.
     let uiText (row, col) = sprintf "%d%d" row col
@@ -262,14 +260,5 @@ module App =
         Program.stateful init (update gameOver) view
 
 type App() as app =
-    inherit Application()
-
-    do app.ShutdownMode <- ShutdownMode.OnMainWindowClose
-
-    let runner = Runners.create App.program
-    do runner.Start()
-
-    let adapter = ViewAdapters.create ViewNode.get runner
-    let window = adapter.CreateView() |> unbox<Window>
-    do app.MainWindow <- window
-    do window.Show()
+    inherit Application(ShutdownMode = ShutdownMode.OnMainWindowClose)
+    do Program.start app App.program

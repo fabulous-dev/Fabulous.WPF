@@ -91,7 +91,21 @@ module Program =
         define
             (fun arg -> let m, c = init arg in m, mapCmds c)
             (fun msg model -> let m, c = update msg model in m, mapCmds c)
-            view               
+            view
+            
+    /// Start the program
+    let startWithArgs (app: Application) (arg: 'arg) (program: Program<'arg, 'model, 'msg, #IWindow>) : unit =
+        let runner = Runners.create program
+        runner.Start(arg)
+        let adapter = ViewAdapters.create ViewNode.get runner
+        let window = adapter.CreateView() |> unbox
+
+        app.MainWindow <- window
+        window.Show()
+
+    /// Start the program
+    let start (app: Application) (program: Program<unit, 'model, 'msg, 'marker>) : unit =
+        startWithArgs app () program
 
     /// Subscribe to external source of events.
     /// The subscription is called once - with the initial model, but can dispatch new messages at any time.

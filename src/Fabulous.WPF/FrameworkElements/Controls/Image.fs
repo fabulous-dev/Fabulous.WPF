@@ -3,7 +3,6 @@
 open Fabulous
 open System.Windows.Controls
 open System.Windows.Media
-open System.Runtime.CompilerServices
 
 type IImage =
     inherit IFrameworkElement
@@ -13,7 +12,11 @@ module Image =
 
     let Stretch = Attributes.defineDependencyEnum<Stretch> Image.StretchProperty    
         
-    let Source = Attributes.defineDependencyWithEquality<ImageSource> Image.SourceProperty    
+    let Source = Attributes.defineDependencyWithEquality<ImageSource> Image.SourceProperty
+
+    /// Keep an instance of ImageSourceConverter here to avoid instantiating this reference on each update
+    let private converter = ImageSourceConverter()
+    let convertFromString (path: string) = converter.ConvertFromString path :?> ImageSource
 
 [<AutoOpen>]
 module ImageBuilders =
@@ -24,10 +27,5 @@ module ImageBuilders =
                 Image.Source.WithValue(source)
             )
 
-[<Extension>]
-type ImageSourceConversion =
-
-    [<Extension>]
-    static member inline FromString(imageName: string) : ImageSource =
-        let appendedName = "Resources/" + imageName
-        ImageSourceConverter().ConvertFromString appendedName :?> ImageSource
+        static member inline Image<'msg>(path: string) =
+            View.Image<'msg>(Image.convertFromString path)
